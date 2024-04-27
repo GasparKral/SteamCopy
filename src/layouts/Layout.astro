@@ -45,7 +45,11 @@ const { title, metaKeywords, metaDescription } = Astro.props;
 
 <style is:global>
     body {
-        @apply bg-primary-blue;
+        @apply bg-primary-blue text-neutral-50;
         font-family: 'Motiva Sans medium', sans-serif;
+    }
+
+    input {
+        @apply border-2 border-neutral-50/80 rounded-md px-2 py-1 text-slate-900;
     }
 </style>

@@ -1,0 +1,16 @@
+---
+interface Props {
+    href: string;
+}
+const { href } = Astro.props;
+const currentDir = Astro.url.pathname;
+---
+
+<li
+    class:list={'hover:text-neutral-50 transition-colors duration-200 ' +
+        (currentDir === href
+            ? 'text-accent-blue underline underline-offset-4'
+            : 'text-neutral-50/80')}
+>
+    <a href={href}><slot /></a>
+</li>
