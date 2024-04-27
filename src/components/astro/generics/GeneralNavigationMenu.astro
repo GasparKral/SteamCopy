@@ -1,0 +1,45 @@
+---
+import { Notifications } from '@assets/Notifications';
+import { UserComponent } from '@reactC/UserComponent';
+---
+
+<nav
+    class='flex text-neutral-50/80 w-full px-16 py-2 justify-between align-middle bg-dark-primary-blue'
+>
+    <a href='/index'>
+        <img
+            src='/logo_steam.svg'
+            alt='Steam'
+            width='135'
+        />
+    </a>
+
+    <menu class='flex gap-8 align-middle text-2xl pt-1'>
+        <li class='hover:text-neutral-50 transition-colors duration-200'>
+            <a href=''>Tienda</a>
+        </li>
+        <li class='hover:text-neutral-50 transition-colors duration-200'>
+            <a href=''>Comunidad</a>
+        </li>
+        <li class='hover:text-neutral-50 transition-colors duration-200'>
+            <a href=''>Usuario</a>
+        </li>
+        <li class='hover:text-neutral-50 transition-colors duration-200'>
+            <a href=''>Chat</a>
+        </li>
+        <li class='hover:text-neutral-50 transition-colors duration-200'>
+            <a href=''>Soporte</a>
+        </li>
+    </menu>
+
+    <div class='flex gap-8 align-middle'>
+        <button
+            class='bg-gray-blue/60 px-3 rounded-lg hover:bg-gray-blue transition-colors duration-200'
+            ><Notifications
+                width='16'
+                height='16'
+            /></button
+        >
+        <UserComponent />
+    </div>
+</nav>
