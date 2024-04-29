@@ -1,0 +1,21 @@
+---
+import ShopLayout from '@layouts/ShopLayout.astro';
+import Hero from '@/components/astro/shop/Hero.astro';
+import { GamesMoks } from '@data/GamesMoks';
+import { Recomendeds } from '@reactC/shop/Recomendeds';
+---
+
+<ShopLayout title='Bienvenido a SteamCopy'>
+    <main class='flex flex-col items-center gap-32 pt-9 pb-60'>
+        <Hero
+            href='/games/BO3'
+            img='/heroBanner.webp'
+            alt='Call Of Duty III'
+        />
+
+        <Recomendeds
+            games={GamesMoks}
+            client:load
+        />
+    </main>
+</ShopLayout>

@@ -4,9 +4,9 @@ import MenuLink from './MenuLink.astro';
 ---
 
 <nav
-    class='flex text-neutral-50/80 w-full px-8 py-2 justify-between items-center bg-dark-primary-blue'
+    class='sticky top-0 flex text-neutral-50/80 w-full px-8 py-2 pr-2 justify-between items-center bg-dark-primary-blue z-30'
 >
-    <a href='/'>
+    <a href='/tienda'>
         <img
             src='/logo_steam.svg'
             alt='Steam'
@@ -17,7 +17,7 @@ import MenuLink from './MenuLink.astro';
     </a>
 
     <menu class='flex gap-4 text-xl items-center'>
-        <MenuLink href='/'>TIENDA</MenuLink>
+        <MenuLink href='/tienda'>TIENDA</MenuLink>
         <MenuLink href='/comunidad'>COMUNIDAD</MenuLink>
         <MenuLink href='/usuario'>USUARIO</MenuLink>
         <MenuLink href='/chat'>CHAT</MenuLink>

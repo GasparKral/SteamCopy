@@ -1,0 +1,25 @@
+---
+const { href, img, alt } = Astro.props;
+---
+
+<a
+    class='w-full'
+    href={href}
+>
+    <img
+        src={img}
+        alt={alt}
+        loading='eager'
+        data-astro-prefetch='load'
+        class='aspect-video'
+    />
+</a>
+
+<style>
+    img {
+        width: 100%;
+        height: 450px;
+        object-fit: cover;
+        object-position: center;
+    }
+</style>

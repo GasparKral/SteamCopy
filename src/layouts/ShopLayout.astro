@@ -1,0 +1,38 @@
+---
+import Layout from './Layout.astro';
+import { WishList } from '@reactC/shop/topNav/WhistList';
+import { SearchBar } from '@reactC/shop/topNav/ShearchBar';
+import { Cart } from '@reactC/shop/topNav/Cart';
+import { Settings } from '@assets/Settings';
+import { SideCartBar } from '@reactC/shop/cart/SideCartBar';
+---
+
+<Layout title='Bienvenido a SteamCopy'>
+    <nav
+        class='fixed top-12 flex text-neutral-50 px-8 pr-4 py-1 justify-between items-center bg-light-primary-blue/95 backdrop-blur-sm w-full z-20'
+    >
+        <menu class='flex gap-4 text-sm items-center'>
+            <li><a href='/tienda'>Inicio</a></li>
+            <li><a href='/tienda/navega'>Navega</a></li>
+            <li><a href='/tienda/descubre'>Descubre</a></li>
+        </menu>
+        <div class='flex gap-4 items-center'>
+            <SearchBar />
+            <WishList
+                styles='min-w-[95px]'
+                client:load
+            />
+            <Cart client:load />
+            <a
+                href='/ajustes'
+                class='bg-dark-primary-blue/60 p-1 rounded group'
+            >
+                <Settings
+                    styles='group-hover:drop-shadow-blue-accent transition-all duration-200'
+                />
+            </a>
+        </div>
+    </nav>
+    <SideCartBar client:load />
+    <slot />
+</Layout>

@@ -8,14 +8,15 @@ interface UserState {
     findUserForName: (username: string) => User | undefined;
     registNewUser: (user: User) => void;
     authenticate: (email: string, password: string) => User | null;
+    closeProfile: () => void;
 }
 
 const testUsers: User[] = [
     {
         username: 'test',
-        avatar: 'test',
+        avatar: 'steampowered-tile.svg',
         email: 'test@gmail.com',
-        wallet: 0,
+        wallet: 12.04,
         password: 'test',
     },
 ];
@@ -46,4 +47,6 @@ export const useUserStore = create<UserState>((set) => ({
             return null;
         }
     },
+
+    closeProfile: () => set({ user: null }),
 }));

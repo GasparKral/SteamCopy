@@ -30,7 +30,7 @@ export const LogInForm = ({ closeFunction }: { closeFunction: () => void }) => {
     return (
         <form
             onSubmit={(e) => handleLogIn(e, 'test', 'test')}
-            className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-dark-primary-blue p-7 px-10   rounded-lg border-2 border-accent-blue/60'
+            className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-2 bg-dark-primary-blue p-7 px-10   rounded-lg border-2 border-accent-blue/60'
         >
             <button
                 className='absolute top-2 right-2 text-light-primary-blue'
@@ -69,7 +69,7 @@ export const LogInForm = ({ closeFunction }: { closeFunction: () => void }) => {
             </fieldset>
 
             <button
-                className='bg-accent-blue/80 hover:bg-accent-blue text-neutral-50 py-1 font-bold rounded transition-colors duration-200 mt-4'
+                className='bg-accent-blue/80 hover:bg-accent-blue text-neutral-50 py-1  rounded transition-colors duration-200 mt-4'
                 type='submit'
             >
                 Iniciar sesión

@@ -14,7 +14,8 @@
             "@reactC/*": ["./components/react/*"],
             "@astroC/*": ["./components/astro/*"],
             "@stores/*": ["./stores/*"],
-            "@types/*": ["./types/*"]
+            "@types/*": ["./types/*"],
+            "@data/*": ["./data/*"]
         }
     }
 }
