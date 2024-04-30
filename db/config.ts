@@ -4,10 +4,13 @@ const Users = defineTable({
     columns: {
         id: column.number({ primaryKey: true }),
         userName: column.text({ unique: true }),
-        avatar: column.text({ optional: true }),
+        avatar: column.text({
+            optional: true,
+            default: 'steampowered-tile.svg',
+        }),
         email: column.text({}),
         password: column.text({}),
-        wallet: column.number({}),
+        wallet: column.number({ default: 0 }),
     },
     indexes: [
         {
@@ -25,6 +28,33 @@ const Games = defineTable({
         price: column.number({}),
         tags: column.text({}),
         url: column.text({}),
+    },
+    indexes: [
+        {
+            on: ['id'],
+            unique: true,
+        },
+    ],
+});
+
+const GamesTags = defineTable({
+    columns: {
+        id: column.number({ primaryKey: true }),
+        game: column.number({ references: () => Games.columns.id }),
+        tag: column.text({}),
+    },
+    indexes: [
+        {
+            on: ['id'],
+            unique: true,
+        },
+    ],
+});
+
+const Tags = defineTable({
+    columns: {
+        id: column.number({ primaryKey: true }),
+        name: column.text({}),
     },
     indexes: [
         {
@@ -69,5 +99,7 @@ export default defineDb({
         Games,
         Carts,
         WhisList,
+        GamesTags,
+        Tags,
     },
 });
