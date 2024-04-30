@@ -26,7 +26,6 @@ const Games = defineTable({
         name: column.text({}),
         img: column.text({}),
         price: column.number({}),
-        tags: column.text({}),
         url: column.text({}),
     },
     indexes: [
@@ -41,7 +40,7 @@ const GamesTags = defineTable({
     columns: {
         id: column.number({ primaryKey: true }),
         game: column.number({ references: () => Games.columns.id }),
-        tag: column.text({}),
+        tag: column.number({ references: () => Tags.columns.id }),
     },
     indexes: [
         {
@@ -66,7 +65,7 @@ const Tags = defineTable({
 
 const Carts = defineTable({
     columns: {
-        id: column.text({ primaryKey: true }),
+        id: column.number({ primaryKey: true }),
         user: column.number({ references: () => Users.columns.id }),
         game: column.number({ references: () => Games.columns.id }),
     },
@@ -80,7 +79,7 @@ const Carts = defineTable({
 
 const WhisList = defineTable({
     columns: {
-        id: column.text({ primaryKey: true }),
+        id: column.number({ primaryKey: true }),
         user: column.number({ references: () => Users.columns.id }),
         game: column.number({ references: () => Games.columns.id }),
     },
