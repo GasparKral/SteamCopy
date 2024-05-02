@@ -1,20 +1,24 @@
 import { create } from 'zustand';
+
 import type { Whistlist } from '@/types/Whistlist';
 import type { Game } from '@/types/Game';
-import { GamesMoks } from 'data/GamesMoks';
+import { WhisList } from 'astro:db';
 
 interface WhistListState {
     whisList: Whistlist;
     addToWhistList: (game: Game) => void;
     removeFromWhistList: (game: Game) => void;
-    findGameForId: (id: string) => boolean;
+    addAllToWhistList: (games: Game[]) => void;
+    getAllWhistList: () => Whistlist;
+    getGameByID: (id: number) => Game;
 }
 
-export const useWhistListStore = create<WhistListState>((set) => ({
-    whisList: {
-        listOfGames: [GamesMoks[0], GamesMoks[1]],
-    },
+const emptyWhistList: Whistlist = {
+    listOfGames: [],
+};
 
+export const useWhistListStore = create<WhistListState>((set, get) => ({
+    whisList: emptyWhistList,
     addToWhistList: (game: Game) => {
         set((state) => ({
             whisList: {
@@ -29,18 +33,32 @@ export const useWhistListStore = create<WhistListState>((set) => ({
             whisList: {
                 ...state.whisList,
                 listOfGames: state.whisList.listOfGames.filter(
-                    (item) => item.id !== game.id
+                    (item) => item.Games.id !== game.Games.id
                 ),
             },
         }));
     },
 
-    findGameForId: (id: string): boolean => {
-        const game = GamesMoks.find((game) => game.id === id);
-        if (game) {
-            return true;
-        }
+    addAllToWhistList: (games: Game[]) => {
+        set((state) => ({
+            whisList: {
+                ...state.whisList,
+                listOfGames: [...state.whisList.listOfGames, ...games],
+            },
+        }));
+    },
 
-        return false;
+    getAllWhistList: () => {
+        return get().whisList;
+    },
+
+    getGameByID(id: number): Game {
+        const game = get().whisList.listOfGames.find(
+            (game) => game.Games.id === id
+        );
+        if (!game) {
+            throw new Error(`Game with id ${id} not found`);
+        }
+        return game;
     },
 }));

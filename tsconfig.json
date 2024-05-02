@@ -15,7 +15,9 @@
             "@astroC/*": ["./components/astro/*"],
             "@stores/*": ["./stores/*"],
             "@types/*": ["./types/*"],
-            "@data/*": ["./data/*"]
+            "@data/*": ["./data/*"],
+            "@api/*": ["./pages/api/*"],
+            "@services/*": ["./services/*"]
         }
     }
 }

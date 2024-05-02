@@ -1,0 +1,56 @@
+---
+import { getSession } from 'auth-astro/server';
+import { Notifications } from '@assets/Notifications';
+
+const session = await getSession(Astro.request);
+---
+
+<div
+    class='flex gap-4 relative transition-colors duration-200 px-2 align-middle'
+>
+    {
+        session ? (
+            <div class='flex gap-8 align-middle mr-8 items-center'>
+                <button class='bg-gray-blue/60 px-1 py-1 rounded hover:bg-gray-blue transition-colors duration-200'>
+                    <Notifications
+                        width='16'
+                        height='16'
+                    />
+                </button>
+                <div class='flex gap-2'>
+                    <div class='flex flex-col align-baseline items-end'>
+                        <p style={{ fontSize: '14px', lineHeight: '12px' }}>
+                            {session.user?.name}
+                        </p>
+                        <small class='text-gray-blue text-xs'>0€</small>
+                    </div>
+                </div>
+            </div>
+        ) : (
+            <>
+                <button
+                    class='w-full text-accent-blue/80 hover:text-accent-blue'
+                    id='login'
+                >
+                    Iniciar
+                </button>
+                <a
+                    href='/regist'
+                    class='w-full text-saturated-green/80 bg-desaturated-green rounded-md hover:text-saturated-green hover:bg-desaturated-green/80 px-2'
+                >
+                    Registrarse
+                </a>
+            </>
+        )
+    }
+</div>
+
+<script>
+    const { signIn } = await import('auth-astro/client');
+    const loginButton = document.getElementById('login');
+    if (loginButton) {
+        loginButton.addEventListener('click', async () => {
+            signIn('google');
+        });
+    }
+</script>

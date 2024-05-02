@@ -10,13 +10,7 @@ import type { Game } from 'types/Game';
 
 export const Recomendeds = ({ games }: { games: Game[] }) => {
     const cart = useCartStore((state) => state);
-    const whisList = useWhistListStore((state) => state);
-
     const [index, setIndex] = useState(0);
-    const [isLoved, setIsLoved] = useState(
-        whisList.findGameForId(games[index].id)
-    );
-    const [isCart, setIsCart] = useState(cart.findGameForId(games[index].id));
 
     const nextGame = () => {
         if (index < games.length - 1) {
@@ -34,34 +28,6 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
         }
     };
 
-    const { name, img, price, tags } = games[index];
-    const href = `/games/${name.replaceAll(' ', '-')}`;
-
-    const handleLove = () => {
-        if (isLoved) {
-            whisList.removeFromWhistList(games[index]);
-            setIsLoved(false);
-        } else {
-            whisList.addToWhistList(games[index]);
-            setIsLoved(true);
-        }
-    };
-
-    const handleCart = (game: Game) => {
-        if (isCart) {
-            cart.removeFromCart(game);
-            setIsCart(false);
-        } else {
-            cart.addToCart(game);
-            setIsCart(true);
-        }
-    };
-
-    useMemo(() => {
-        setIsLoved(whisList.findGameForId(games[index].id));
-        setIsCart(cart.findGameForId(games[index].id));
-    }, [index]);
-
     return (
         <section className='w-4/5 flex flex-col gap-4'>
             <h2 className='text-5xl ml-10'>Recomendados:</h2>
@@ -75,7 +41,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                         data-astro-prefetch='load'
                     >
                         <img
-                            className='shadow-right h-full'
+                            className='shadow-right h-full object-cover'
                             src={img}
                             alt={`Banner of ${name}`}
                         />

@@ -1,0 +1,21 @@
+---
+import type { GetStaticPaths } from 'astro';
+import GamesLayout from '@/layouts/GamesLayout.astro';
+
+export const getStaticPaths = (() => {
+    return [
+        { params: { gameName: 'Call-of-Duty-III' } },
+        { params: { gameName: 'Halo-Infinite' } },
+        { params: { gameName: 'Grand-Theft-Auto-V' } },
+        { params: { gameName: 'Borderlands-2' } },
+        { params: { gameName: 'Red-Dead-Redemption-2' } },
+    ];
+}) satisfies GetStaticPaths;
+
+const { gameName } = Astro.params;
+---
+
+<GamesLayout
+    title={gameName}
+    gameName={gameName}
+/>
