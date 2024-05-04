@@ -1,3 +1,4 @@
+'use client';
 import { Arrow } from '@assets/Arrow';
 import { GameTag } from '@reactC/shop/subComponents/GameTag';
 import { useState, useMemo } from 'react';
@@ -37,20 +38,19 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                 </button>
                 <article className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300'>
                     <a
-                        href={href}
+                        href={games[index].url}
                         data-astro-prefetch='load'
                     >
                         <img
                             className='shadow-right h-full object-cover'
-                            src={img}
-                            alt={`Banner of ${name}`}
+                            src={games[index].img}
+                            alt={`Banner of ${games[index].name}`}
                         />
                     </a>
                     <article className='p-6 pl-0'>
-                        <h2 className='text-4xl'>{name}</h2>
-                        <p>{price}€</p>
-
-                        <button
+                        <h2 className='text-4xl'>{games[index].name}</h2>
+                        <p>{games[index].price}€</p>
+                        {/*<button
                             className={`absolute top-6 right-4 p-1 rounded group transition-all duration-200 ${
                                 isLoved
                                     ? 'bg-red-500/20 hover:bg-gray-blue'
@@ -65,8 +65,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                                         : 'group-hover:text-red-500 transition-all duration-200'
                                 }`}
                             />
-                        </button>
-
+                            </button>*/}
                         <div className='flex gap-2 justify-between w-fit absolute bottom-14'>
                             <a
                                 href='/pagos'
@@ -74,17 +73,14 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                             >
                                 Compralo ya!
                             </a>
-                            <button
-                                className='bg-accent-blue/20 text-neutral-50/80 hover:bg-accent-blue/80 hover:text-neutral-50 p-1 rounded-md transition-colors duration-200'
-                                onClick={() => handleCart(games[index])}
-                            >
+                            <button className='bg-accent-blue/20 text-neutral-50/80 hover:bg-accent-blue/80 hover:text-neutral-50 p-1 rounded-md transition-colors duration-200'>
                                 <Cart styles='' />
                             </button>
                         </div>
                         <div className='flex gap-2 absolute bottom-6'>
-                            {tags.map((tag) => (
+                            {games[index].tags.split(',').map((tag) => (
                                 <GameTag
-                                    key={tag}
+                                    key={tag + games[index].name + index}
                                     tag={tag}
                                 />
                             ))}

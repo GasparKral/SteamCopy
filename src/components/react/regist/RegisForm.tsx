@@ -98,7 +98,7 @@ export const RegisForm = () => {
                         {showPassword ? <ClosedEye /> : <OpenEye />}
                     </button>
                 </div>
-                <div className='mt-2'>
+                <div className='mt-2 flex gap-4'>
                     <input
                         type='checkbox'
                         name='remember'

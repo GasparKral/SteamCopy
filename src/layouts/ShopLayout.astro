@@ -18,11 +18,8 @@ import { SideCartBar } from '@reactC/shop/cart/SideCartBar';
         </menu>
         <div class='flex gap-4 items-center'>
             <SearchBar />
-            <WishList
-                styles='min-w-[95px]'
-                client:load
-            />
-            <Cart client:load />
+            <WishList styles='min-w-[95px]' />
+            <Cart />
             <a
                 href='/ajustes'
                 class='bg-dark-primary-blue/60 p-1 rounded group'
