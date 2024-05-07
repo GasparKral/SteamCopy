@@ -1,17 +1,37 @@
-'use client';
 import { Arrow } from '@assets/Arrow';
 import { GameTag } from '@reactC/shop/subComponents/GameTag';
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { Cart } from '@/assets/Cart';
 import { Heart } from '@/assets/Heart';
-import { useCartStore } from '@stores/useCartStore';
-import { useWhistListStore } from '@stores/useWhistListStore';
+import { useStore } from '@nanostores/react';
+import {
+    cart,
+    addToCart,
+    isGameInCart,
+    removeFromCart,
+} from '@stores/useCartStore';
+import {
+    whistList,
+    isGameInWhistlist,
+    addToWhistlist,
+    removeFromWhistlist,
+} from '@stores/useWhistlistStore';
 
 import type { Game } from 'types/Game';
 
 export const Recomendeds = ({ games }: { games: Game[] }) => {
-    const cart = useCartStore((state) => state);
+    const $cart = useStore(cart);
+    const $whistList = useStore(whistList);
     const [index, setIndex] = useState(0);
+    const [isLoved, setIsLoved] = useState(isGameInWhistlist(games[index]));
+
+    useEffect(() => {
+        if (isGameInWhistlist(games[index])) {
+            setIsLoved(true);
+        } else {
+            setIsLoved(false);
+        }
+    }, [index]);
 
     const nextGame = () => {
         if (index < games.length - 1) {
@@ -26,6 +46,24 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
             setIndex(index - 1);
         } else {
             setIndex(games.length - 1);
+        }
+    };
+
+    const handleCart = (game: Game) => {
+        if (isGameInCart(game)) {
+            removeFromCart(game);
+        } else {
+            addToCart(game);
+        }
+    };
+
+    const handleLove = (game: Game) => {
+        if (isGameInWhistlist(game)) {
+            removeFromWhistlist(game);
+            setIsLoved(false);
+        } else {
+            addToWhistlist(game);
+            setIsLoved(true);
         }
     };
 
@@ -50,13 +88,13 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                     <article className='p-6 pl-0'>
                         <h2 className='text-4xl'>{games[index].name}</h2>
                         <p>{games[index].price}€</p>
-                        {/*<button
+                        <button
                             className={`absolute top-6 right-4 p-1 rounded group transition-all duration-200 ${
                                 isLoved
                                     ? 'bg-red-500/20 hover:bg-gray-blue'
                                     : 'bg-gray-blue hover:bg-red-500/20'
                             }`}
-                            onClick={handleLove}
+                            onClick={() => handleLove(games[index])}
                         >
                             <Heart
                                 styles={`${
@@ -65,7 +103,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                                         : 'group-hover:text-red-500 transition-all duration-200'
                                 }`}
                             />
-                            </button>*/}
+                        </button>
                         <div className='flex gap-2 justify-between w-fit absolute bottom-14'>
                             <a
                                 href='/pagos'
@@ -73,8 +111,15 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                             >
                                 Compralo ya!
                             </a>
-                            <button className='bg-accent-blue/20 text-neutral-50/80 hover:bg-accent-blue/80 hover:text-neutral-50 p-1 rounded-md transition-colors duration-200'>
-                                <Cart styles='' />
+                            <button
+                                onClick={() => handleCart(games[index])}
+                                className={`${
+                                    isGameInCart(games[index])
+                                        ? 'bg-accent-blue hover:bg-red-500/60'
+                                        : 'bg-accent-blue/20  hover:bg-accent-blue/80'
+                                } hover:text-neutral-50 p-1 rounded-md transition-colors duration-200`}
+                            >
+                                <Cart />
                             </button>
                         </div>
                         <div className='flex gap-2 absolute bottom-6'>

@@ -1,6 +1,7 @@
-import { useWhistListStore } from '@/stores/useWhistListStore';
+import { whistList, whistlistLength } from '@stores/useWhistlistStore';
+import { useStore } from '@nanostores/react';
 export const WishList = ({ styles }: { styles?: string }) => {
-    const WhistListLength = useWhistListStore((state) => state.whisList);
+    const $whistList = useStore(whistList);
 
     return (
         <a
@@ -8,9 +9,7 @@ export const WishList = ({ styles }: { styles?: string }) => {
             href='/deseados'
         >
             Deseados
-            {WhistListLength.listOfGames.length == 0
-                ? ''
-                : `(${WhistListLength.listOfGames.length})`}
+            {whistlistLength() > 0 ? `(${whistlistLength()})` : ''}
         </a>
     );
 };

@@ -1,24 +1,25 @@
-import { useCartStore } from '@stores/useCartStore';
+import { useStore } from '@nanostores/react';
+import { isCartOpen, setIsCartOpen } from '@stores/useLayoutsStore';
+import { cart } from '@stores/useCartStore';
 import { CartGameComponent } from '@reactC/shop/cart/CartGameComponent';
-import { useOpensLayouts } from '@stores/useOpensLayouts';
 import { ClossingArrow } from '@assets/ClossingArrow';
 export const SideCartBar = () => {
-    const cart = useCartStore((state) => state.cart);
-    const cartOpen = useOpensLayouts((state) => state);
+    const $isCartOpen = useStore(isCartOpen);
+    const $cart = useStore(cart);
 
     return (
         <>
-            {cartOpen.cartOpen ? (
+            {$isCartOpen && (
                 <aside className='fixed flex flex-col items-center right-0 top-20 h-[calc(100vh-80px)] w-[255px] pr-4 py-4 pt-16 bg-dark-primary-blue z-10 '>
                     <button
-                        onClick={() => cartOpen.setCartOpen(false)}
+                        onClick={() => setIsCartOpen(false)}
                         className='absolute top-2 left-0 p-2'
                     >
                         <ClossingArrow />
                     </button>
 
                     <ul className='flex flex-col gap-2'>
-                        {cart.map((cart) => (
+                        {$cart.map((cart) => (
                             <CartGameComponent
                                 key={cart.id}
                                 game={cart}
@@ -32,7 +33,7 @@ export const SideCartBar = () => {
                         COMPRAR
                     </a>
                 </aside>
-            ) : null}
+            )}
         </>
     );
 };

@@ -1,14 +1,14 @@
-import { useUserStore } from '@/stores/useUserStore';
+
 export const CloseProfile = ({
     closeFunction,
 }: {
     closeFunction: () => void;
 }) => {
-    const closeProfile = useUserStore((state) => state.closeProfile);
+   
 
     const handleClose = () => {
         closeFunction();
-        closeProfile();
+        
         localStorage.removeItem('user');
     };
 

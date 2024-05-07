@@ -14,6 +14,11 @@ export default defineConfig({
         '/': '/tienda',
     },
     site: 'https://steamui.netlify.app',
-    output: 'server',
     adapter: netlify(),
+    output: 'hybrid',
+    vite: {
+        ssr: {
+            external: ['react', 'react-dom'],
+        },
+    },
 });

@@ -1,11 +1,11 @@
-import { useUserStore } from '@stores/useUserStore';
+
 import { OpenEye, ClosedEye } from '@assets/Eyes';
 import { useState } from 'react';
 
 export const prerender = true;
 
 export const RegisForm = () => {
-    const state = useUserStore((state) => state);
+   
     const advise = document.getElementById('advise');
 
     const submited = (e: React.FormEvent<HTMLFormElement>) => {

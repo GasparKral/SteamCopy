@@ -11,7 +11,7 @@ const session = await getSession(Astro.request);
     class='flex gap-4 relative transition-colors duration-200 px-2 align-middle'
 >
     {
-        session ? (
+        session && (
             <div class='flex gap-8 align-middle mr-8 items-center'>
                 <button class='bg-gray-blue/60 px-1 py-1 rounded hover:bg-gray-blue transition-colors duration-200'>
                     <Notifications
@@ -33,7 +33,10 @@ const session = await getSession(Astro.request);
                     />
                 </div>
             </div>
-        ) : (
+        )
+    }
+    {
+        !session && (
             <div class='flex gap-4'>
                 <button
                     class='w-full text-accent-blue/80 hover:text-accent-blue'

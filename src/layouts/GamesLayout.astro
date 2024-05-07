@@ -16,18 +16,18 @@ const { name, img } = game[0];
 
 <Layout title={name}>
     <main
-        class='w-screen h-screen flex items-center justify-center bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-accent-blue via-light-primary-blue to-light-primary-blue'
+        class='w-screen h-screen flex justify-center py-16 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-accent-blue via-light-primary-blue to-light-primary-blue'
     >
         <section
-            class='grid max-w-7xl w-full bg-dark-primary-blue/60 p-4 rounded-xl'
+            class='grid max-w-screen-2xl w-full h-4/5 bg-dark-primary-blue/60 rounded-xl'
             style='grid-template-columns: 700px 1fr;'
         >
             <img
-                class='w-full object-cover aspect-video rounded'
+                class='w-full object-cover h-full rounded'
                 src={img}
                 alt={`banner de ${name}`}
             />
-            <article class='px-8 flex flex-col gap-4'>
+            <article class='px-8 flex flex-col gap-4 p-8'>
                 <h1 class='text-5xl'>{name}</h1>
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.

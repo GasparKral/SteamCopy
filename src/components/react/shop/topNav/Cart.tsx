@@ -1,21 +1,19 @@
 import { Cart as CartIcon } from '@/assets/Cart';
-import { useCartStore } from '@stores/useCartStore';
-import { useOpensLayouts } from '@stores/useOpensLayouts';
-export const Cart = ({ styles }: { styles?: string }) => {
-    const CartLength = useCartStore((state) => state.cart.length);
-    const { setCartOpen, cartOpen } = useOpensLayouts();
+import { isCartOpen } from '@stores/useLayoutsStore';
+import { cartLength, cart } from '@stores/useCartStore';
+import { useStore } from '@nanostores/react';
 
-    const openCart = () => {
-        setCartOpen(!cartOpen);
-    };
+export const Cart = ({ styles }: { styles?: string }) => {
+    const $isCartOpen = useStore(isCartOpen);
+    const $cart = useStore(cart);
 
     return (
         <button
-            onClick={openCart}
+            onClick={() => isCartOpen.set(!$isCartOpen)}
             className={`group relative ${styles}`}
         >
             <span className='absolute -top-1 -right-2 text-xs group-hover:drop-shadow-blue-accent transition-all duration-200'>
-                {CartLength === 0 ? '' : CartLength}
+                {cartLength() > 0 ? cartLength() : ''}
             </span>
             <CartIcon styles='group-hover:drop-shadow-blue-accent transition-all duration-200' />
         </button>
