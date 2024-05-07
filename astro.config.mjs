@@ -6,7 +6,6 @@ import db from '@astrojs/db';
 import auth from 'auth-astro';
 import netlify from '@astrojs/netlify';
 
-// https://astro.build/config
 export default defineConfig({
     integrations: [tailwind(), react(), db(), auth()],
     prefetch: true,
@@ -15,7 +14,7 @@ export default defineConfig({
     },
     site: 'https://steamui.netlify.app',
     adapter: netlify(),
-    output: 'hybrid',
+    output: 'server',
     vite: {
         ssr: {
             external: ['react', 'react-dom'],

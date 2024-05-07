@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+
 import { WishList } from '@reactC/shop/topNav/WhistList';
 import { SearchBar } from '@reactC/shop/topNav/ShearchBar';
 import { Cart } from '@reactC/shop/topNav/Cart';
@@ -19,7 +20,7 @@ import { SideCartBar } from '@reactC/shop/cart/SideCartBar';
         <div class='flex gap-4 items-center'>
             <SearchBar />
             <WishList
-                styles='min-w-[95px]'
+                styles='min-w-[125px]'
                 client:load
             />
             <Cart client:load />

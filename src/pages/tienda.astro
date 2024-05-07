@@ -1,10 +1,13 @@
 ---
-import type { Game } from '@/types/Game';
+import type { Game } from 'types/Game';
 
 import ShopLayout from '@layouts/ShopLayout.astro';
 import Hero from '@/components/astro/shop/Hero.astro';
 
 import { Recomendeds } from '@reactC/shop/Recomendeds';
+import { ShowGame } from '@/components/react/shop/ShowGame';
+import { NUMBER_OF_RECOMEND } from '@data/constants';
+
 import { db, Games, GamesTags, Tags, eq, sql } from 'astro:db';
 
 export const prerender = true;
@@ -16,16 +19,17 @@ const games: Game[] = await db
         price: Games.price,
         url: Games.url,
         tags: sql<string>`GROUP_CONCAT(${Tags.name})`.as('tags'),
+        offert: Games.offert,
+        offertedPrice: Games.offertedPrice,
     })
     .from(Games)
     .innerJoin(GamesTags, eq(Games.id, GamesTags.game))
     .innerJoin(Tags, eq(GamesTags.tag, Tags.id))
-    .groupBy(Games.id)
-    .limit(3);
+    .groupBy(Games.id);
 ---
 
 <ShopLayout title='Bienvenido a SteamCopy'>
-    <main class='flex flex-col items-center gap-32 pt-9 pb-60'>
+    <main class='flex flex-col items-center gap-20 pt-9 pb-60'>
         <Hero
             href='/games/Call-of-Duty-III'
             img='/heroBanner.webp'
@@ -33,8 +37,17 @@ const games: Game[] = await db
         />
 
         <Recomendeds
-            games={games}
+            games={games.toSorted().toSpliced(0, NUMBER_OF_RECOMEND)}
             client:load
         />
+
+        {
+            games.map((game) => (
+                <ShowGame
+                    game={game}
+                    client:load
+                />
+            ))
+        }
     </main>
 </ShopLayout>

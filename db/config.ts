@@ -27,6 +27,8 @@ const Games = defineTable({
         img: column.text({}),
         price: column.number({}),
         url: column.text({}),
+        offert: column.boolean({ default: false }),
+        offertedPrice: column.number({ optional: true }),
     },
     indexes: [
         {

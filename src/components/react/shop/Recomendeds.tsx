@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Cart } from '@/assets/Cart';
 import { Heart } from '@/assets/Heart';
 import { useStore } from '@nanostores/react';
+import { Price } from '@reactC/shop/subComponents/Price';
 import {
     cart,
     addToCart,
@@ -32,6 +33,13 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
             setIsLoved(false);
         }
     }, [index]);
+
+    useEffect(() => {
+        const updateRecomendedIndex = setInterval(() => {
+            nextGame();
+        }, 5000);
+        return () => clearInterval(updateRecomendedIndex);
+    }, [index, isLoved, $cart]);
 
     const nextGame = () => {
         if (index < games.length - 1) {
@@ -68,9 +76,9 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
     };
 
     return (
-        <section className='w-4/5 flex flex-col gap-4'>
+        <section className='w-4/5 flex flex-col gap-4 mb-16 '>
             <h2 className='text-5xl ml-10'>Recomendados:</h2>
-            <div className='flex columns-3 w-full h-80 gap-4 justify-between'>
+            <div className='flex columns-3 w-full h-96 gap-4 justify-between'>
                 <button onClick={previousGame}>
                     <Arrow styles='rotate-180 hover:drop-shadow-blue-accent' />
                 </button>
@@ -78,6 +86,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                     <a
                         href={games[index].url}
                         data-astro-prefetch='load'
+                        className='flex-1 max-w-[675px]'
                     >
                         <img
                             className='shadow-right h-full object-cover'
@@ -87,7 +96,12 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                     </a>
                     <article className='p-6 pl-0'>
                         <h2 className='text-4xl'>{games[index].name}</h2>
-                        <p>{games[index].price}€</p>
+                        <Price
+                            price={games[index].price}
+                            offert={games[index].offert}
+                            offertedPrice={games[index].offertedPrice}
+                        />
+
                         <button
                             className={`absolute top-6 right-4 p-1 rounded group transition-all duration-200 ${
                                 isLoved
@@ -135,6 +149,21 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                 <button onClick={nextGame}>
                     <Arrow styles='hover:drop-shadow-blue-accent' />
                 </button>
+            </div>
+            <div className='flex-1 flex gap-4 justify-center'>
+                {games.map((game) => (
+                    <div
+                        onClick={() => setIndex(games.indexOf(game))}
+                        key={game.id}
+                        className={`max-w-[25px] w-1/3 rounded-full cursor-pointer ${
+                            index === games.indexOf(game)
+                                ? 'bg-accent-blue'
+                                : ' bg-gray-blue'
+                        }`}
+                    >
+                        <span className='opacity-0'>·</span>
+                    </div>
+                ))}
             </div>
         </section>
     );
