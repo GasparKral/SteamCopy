@@ -52,6 +52,7 @@ export const SearchBar = () => {
                 className='outline-none text-neutral-50/80 bg-dark-primary-blue'
                 id='search'
                 onChange={(event) => debouncedCallback(event.target.value)}
+                autoComplete='off'
             />
             <button
                 type='submit'
