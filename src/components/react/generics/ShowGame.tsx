@@ -70,7 +70,11 @@ export const ShowGame = ({ game }: { game: Game }) => {
                 />
             </a>
             <article className='p-6 pl-0'>
-                <h2 className='text-4xl break-words max-w-[500px]'>
+                <h2
+                    className={`${
+                        game.name.length > 30 ? 'text-3xl' : 'text-4xl'
+                    }  break-words max-w-[350px]`}
+                >
                     {game.name}
                 </h2>
                 <Price
