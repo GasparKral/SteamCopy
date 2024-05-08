@@ -18,10 +18,12 @@ import {
     addToWhistlist,
     removeFromWhistlist,
 } from '@stores/useWhistlistStore';
+import { lib, addGameToLib, isGameInLib } from '@stores/useLibStore';
 
 export const ShowGame = ({ game }: { game: Game }) => {
     const $cart = useStore(cart);
     const $whistList = useStore(whistList);
+    const $lib = useStore(lib);
     const [isLoved, setIsLoved] = useState(isGameInWhistlist(game));
 
     const handleLove = (game: Game) => {
@@ -40,6 +42,13 @@ export const ShowGame = ({ game }: { game: Game }) => {
             addToCart(game);
         }
     };
+    const handleLib = (game: Game) => {
+        if (!isGameInLib(game)) {
+            addGameToLib(game);
+        } else {
+            return;
+        }
+    };
 
     useMemo(() => {
         if (isGameInWhistlist(game)) {
@@ -48,11 +57,11 @@ export const ShowGame = ({ game }: { game: Game }) => {
     }, [$whistList]);
 
     return (
-        <section className='w-4/5 flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300 min-h-[250px]'>
+        <section className='w-[calc(100%-2rem)] 2xl:w-4/5 flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300 max-h-[250px] min-h-[250px]'>
             <a
                 href={game.url}
                 data-astro-prefetch='load'
-                className='flex-1 max-w-[550px]'
+                className=' min-w-[550px]'
             >
                 <img
                     className='shadow-right h-full object-cover  '
@@ -61,7 +70,9 @@ export const ShowGame = ({ game }: { game: Game }) => {
                 />
             </a>
             <article className='p-6 pl-0'>
-                <h2 className='text-4xl'>{game.name}</h2>
+                <h2 className='text-4xl break-words max-w-[500px]'>
+                    {game.name}
+                </h2>
                 <Price
                     price={game.price}
                     offert={game.offert}
@@ -84,26 +95,37 @@ export const ShowGame = ({ game }: { game: Game }) => {
                     />
                 </button>
                 <div className='flex gap-2 justify-between w-fit absolute bottom-14'>
-                    <a
-                        href='/pagos'
-                        className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
-                    >
-                        {game.price === 0
-                            ? 'Añadir a la biblioteca'
-                            : 'Compra ya!'}
-                    </a>
-                    <button
-                        onClick={() => handleCart(game)}
-                        className={`${
-                            isGameInCart(game)
-                                ? 'bg-accent-blue hover:bg-red-500/60'
-                                : 'bg-accent-blue/20  hover:bg-accent-blue/80'
-                        } hover:text-neutral-50 p-1 rounded-md transition-colors duration-200`}
-                    >
-                        <Cart />
-                    </button>
+                    {game.price === 0 ? (
+                        <button
+                            onClick={() => handleLib(game)}
+                            className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
+                        >
+                            {isGameInLib(game)
+                                ? 'Ya en libreria'
+                                : 'Añadir a la biblioteca'}
+                        </button>
+                    ) : (
+                        <a
+                            href='/pagos'
+                            className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
+                        >
+                            Compra ya!
+                        </a>
+                    )}
+                    {game.price === 0 ? null : (
+                        <button
+                            onClick={() => handleCart(game)}
+                            className={`${
+                                isGameInCart(game)
+                                    ? 'bg-accent-blue hover:bg-red-500/60'
+                                    : 'bg-accent-blue/20  hover:bg-accent-blue/80'
+                            } hover:text-neutral-50 p-1 rounded-md transition-colors duration-200`}
+                        >
+                            <Cart />
+                        </button>
+                    )}
                 </div>
-                <div className='flex gap-2 absolute bottom-6'>
+                <div className='flex gap-2 absolute bottom-6 overflow-hidden max-w-full'>
                     {game.tags.split(',').map((tag) => (
                         <GameTag
                             key={tag + game.name}

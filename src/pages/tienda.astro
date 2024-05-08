@@ -5,12 +5,12 @@ import ShopLayout from '@layouts/ShopLayout.astro';
 import Hero from '@/components/astro/shop/Hero.astro';
 
 import { Recomendeds } from '@reactC/shop/Recomendeds';
-import { ShowGame } from '@/components/react/shop/ShowGame';
+import { ShowGame } from '@/components/react/generics/ShowGame';
 import { NUMBER_OF_RECOMEND } from '@data/constants';
 
 import { db, Games, GamesTags, Tags, eq, sql } from 'astro:db';
 
-export const prerender = true;
+export const prerender = false;
 const games: Game[] = await db
     .select({
         id: Games.id,

@@ -6,6 +6,7 @@ interface Props {
 }
 
 import GeneralNavigationMenu from '@astroC/generics/GeneralNavigationMenu.astro';
+import { ViewTransitions } from 'astro:transitions';
 
 const { title, metaKeywords, metaDescription } = Astro.props;
 ---
@@ -36,23 +37,23 @@ const { title, metaKeywords, metaDescription } = Astro.props;
             name='description'
             content={metaDescription || 'Astro description'}
         />
+        <ViewTransitions />
     </head>
     <body>
         <GeneralNavigationMenu />
         <slot />
+        <style is:global>
+            body {
+                @apply bg-primary-blue text-neutral-50;
+                font-family: 'Motiva Sans medium', sans-serif;
+            }
+
+            input {
+                @apply border-2 border-neutral-50/80 rounded-md px-2 py-1 text-slate-900;
+            }
+            ::-webkit-scrollbar {
+                width: 0px;
+            }
+        </style>
     </body>
 </html>
-
-<style is:global>
-    body {
-        @apply bg-primary-blue text-neutral-50;
-        font-family: 'Motiva Sans medium', sans-serif;
-    }
-
-    input {
-        @apply border-2 border-neutral-50/80 rounded-md px-2 py-1 text-slate-900;
-    }
-    ::-webkit-scrollbar {
-        width: 0px;
-    }
-</style>

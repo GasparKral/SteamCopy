@@ -1,0 +1,40 @@
+---
+import { Notifications } from '@assets/Notifications';
+
+const { session } = Astro.props;
+---
+
+<div class='flex gap-8 align-middle mr-8 items-center'>
+    <button
+        class='bg-gray-blue/60 px-1 py-1 rounded hover:bg-gray-blue transition-colors duration-200'
+    >
+        <Notifications
+            width='16'
+            height='16'
+        />
+    </button>
+    <div class='flex gap-2'>
+        <div class='flex flex-col align-baseline items-end'>
+            <p style={{ fontSize: '14px', lineHeight: '12px' }}>
+                {session.user?.name}
+            </p>
+            <small class='text-gray-blue text-xs'>0€</small>
+        </div>
+        <img
+            id='signOut'
+            class='rounded-md h-8 w-8 ring-2 hover:ring-accent-blue transition-all duration-200 cursor-pointer'
+            src={session.user?.image}
+            alt={session.user?.name + ' image'}
+        />
+    </div>
+</div>
+
+<script>
+    import { signOut } from 'auth-astro/client';
+    const signOutButton = document.getElementById('signOut');
+    if (signOutButton) {
+        signOutButton.addEventListener('click', async () => {
+            await signOut();
+        });
+    }
+</script>

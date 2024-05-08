@@ -2,8 +2,6 @@
 import Layout from './Layout.astro';
 import { db, Games, eq } from 'astro:db';
 
-export const prerender = true;
-
 const { gameName } = Astro.props;
 const game = await db
     .select()

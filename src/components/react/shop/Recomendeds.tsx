@@ -82,11 +82,11 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                 <button onClick={previousGame}>
                     <Arrow styles='rotate-180 hover:drop-shadow-blue-accent' />
                 </button>
-                <article className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300'>
+                <article className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue  transition-all duration-300'>
                     <a
                         href={games[index].url}
                         data-astro-prefetch='load'
-                        className='flex-1 max-w-[675px]'
+                        className='max-w-[500px] 2xl:max-w-[675px]'
                     >
                         <img
                             className='shadow-right h-full object-cover'
@@ -95,7 +95,9 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                         />
                     </a>
                     <article className='p-6 pl-0'>
-                        <h2 className='text-4xl'>{games[index].name}</h2>
+                        <h2 className='text-4xl break-words'>
+                            {games[index].name}
+                        </h2>
                         <Price
                             price={games[index].price}
                             offert={games[index].offert}
@@ -125,16 +127,18 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                             >
                                 Compralo ya!
                             </a>
-                            <button
-                                onClick={() => handleCart(games[index])}
-                                className={`${
-                                    isGameInCart(games[index])
-                                        ? 'bg-accent-blue hover:bg-red-500/60'
-                                        : 'bg-accent-blue/20  hover:bg-accent-blue/80'
-                                } hover:text-neutral-50 p-1 rounded-md transition-colors duration-200`}
-                            >
-                                <Cart />
-                            </button>
+                            {games[index].price === 0 ? null : (
+                                <button
+                                    onClick={() => handleCart(games[index])}
+                                    className={`${
+                                        isGameInCart(games[index])
+                                            ? 'bg-accent-blue hover:bg-red-500/60'
+                                            : 'bg-accent-blue/20  hover:bg-accent-blue/80'
+                                    } hover:text-neutral-50 p-1 rounded-md transition-colors duration-200`}
+                                >
+                                    <Cart />
+                                </button>
+                            )}
                         </div>
                         <div className='flex gap-2 absolute bottom-6'>
                             {games[index].tags.split(',').map((tag) => (

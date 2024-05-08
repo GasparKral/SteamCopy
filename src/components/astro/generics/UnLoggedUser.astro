@@ -1,0 +1,28 @@
+---
+
+---
+
+<div class='flex gap-4'>
+    <button
+        class='w-full text-accent-blue/80 hover:text-accent-blue'
+        id='login'
+    >
+        Iniciar
+    </button>
+    <a
+        href='/regist'
+        class='w-full text-saturated-green/80 bg-desaturated-green rounded-md hover:text-saturated-green hover:bg-desaturated-green/80 px-2'
+    >
+        Registrarse
+    </a>
+</div>
+
+<script>
+    const { signIn } = await import('auth-astro/client');
+    const loginButton = document.getElementById('login');
+    if (loginButton) {
+        loginButton.addEventListener('click', async () => {
+            signIn('google');
+        });
+    }
+</script>

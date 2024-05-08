@@ -1,9 +1,49 @@
 ---
+import type { Game } from '@/types/Game';
+
 import ShopLayout from '@layouts/ShopLayout.astro';
+
+import { Filters } from '@/components/react/shop/discover/Filters';
+import { ShowFilteredGames } from '@reactC/shop/discover/ShowFilteredGames';
+import { Tags, Games, GamesTags, eq, sql, db } from 'astro:db';
+
+const tags: string[] = (
+    await db
+        .select({
+            name: Tags.name,
+        })
+        .from(Tags)
+).map((tag) => tag.name);
+
+const games: Game[] = await db
+    .select({
+        id: Games.id,
+        name: Games.name,
+        img: Games.img,
+        price: Games.price,
+        url: Games.url,
+        tags: sql<string>`GROUP_CONCAT(${Tags.name})`.as('tags'),
+        offert: Games.offert,
+        offertedPrice: Games.offertedPrice,
+    })
+    .from(Games)
+    .innerJoin(GamesTags, eq(Games.id, GamesTags.game))
+    .innerJoin(Tags, eq(GamesTags.tag, Tags.id))
+    .groupBy(Games.id);
 ---
 
 <ShopLayout title='Bienvenido a SteamCopy'>
-    <main>
+    <main
+        class='bg-primary-blue min-h-screen pl-[400px] flex flex-col gap-16 pb-20'
+    >
         <h1>Descubre</h1>
+        <Filters
+            client:visible
+            categorias={tags}
+        />
+        <ShowFilteredGames
+            games={games}
+            client:load
+        />
     </main>
 </ShopLayout>
