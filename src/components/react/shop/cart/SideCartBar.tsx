@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen } from '@stores/useLayoutsStore';
 import { cart } from '@stores/useCartStore';
@@ -10,7 +11,15 @@ export const SideCartBar = () => {
     return (
         <>
             {$isCartOpen && (
-                <aside className='fixed flex flex-col items-center right-0 top-20 h-[calc(100vh-80px)] w-[255px] pr-4 py-4 pt-16 bg-dark-primary-blue z-10 '>
+                <motion.aside
+                    className='fixed flex flex-col items-center right-0 top-20 h-[calc(100vh-80px)] w-[255px] pr-4 py-4 pt-16 bg-dark-primary-blue z-10'
+                    initial={{ x: '100%' }}
+                    animate={{
+                        x: 0,
+                        transition: { duration: 0.3 },
+                        type: 'tween',
+                    }}
+                >
                     <button
                         onClick={() => setIsCartOpen(false)}
                         className='absolute top-2 left-0 p-2'
@@ -32,7 +41,7 @@ export const SideCartBar = () => {
                     >
                         COMPRAR
                     </a>
-                </aside>
+                </motion.aside>
             )}
         </>
     );
