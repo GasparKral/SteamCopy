@@ -37,7 +37,7 @@ const games: Game[] = await db
         />
 
         <Recomendeds
-            games={games.toSorted().toSpliced(0, NUMBER_OF_RECOMEND)}
+            games={games.toSorted().slice(0, NUMBER_OF_RECOMEND)}
             client:load
         />
 

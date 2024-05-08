@@ -1,16 +1,32 @@
 import { Search } from '@assets/Search';
-import { useDebounceValue } from 'usehooks-ts';
-import { useState, useRef } from 'react';
-import { db, Games, GamesTags, Tags, eq } from 'astro:db';
+import { useDebounceCallback } from 'usehooks-ts';
+import { useState, useMemo } from 'react';
+
 export const SearchBar = () => {
     const [searchText, setSearch] = useState('');
-    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
     };
 
-     const search = useDebounceValue(inputRef.current?.value, 500,);
+    const debouncedCallback = useDebounceCallback(setSearch, 500);
+
+    useMemo(() => {
+        fetch('/api/games/getseartchgames.json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                search: searchText,
+            }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => console.log(err));
+    }, [searchText]);
 
     return (
         <form
@@ -28,7 +44,7 @@ export const SearchBar = () => {
                 placeholder='Buscar...'
                 className='outline-none text-neutral-50/80 bg-dark-primary-blue'
                 id='search'
-                ref={inputRef}
+                onChange={(event) => debouncedCallback(event.target.value)}
             />
             <button
                 type='submit'
