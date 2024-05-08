@@ -1,12 +1,19 @@
+import type { Game } from '@/types/Game';
+
 import { Search } from '@assets/Search';
 import { useDebounceCallback } from 'usehooks-ts';
 import { useState, useMemo } from 'react';
+import { ShowSearchGames } from '@reactC/shop/subComponents/ShowSearchGames';
 
 export const SearchBar = () => {
     const [searchText, setSearch] = useState('');
+    const [showGames, setShowGames] = useState<Game[]>([]);
 
     const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (showGames.length > 0) {
+            window.location.href = showGames[0].url;
+        }
     };
 
     const debouncedCallback = useDebounceCallback(setSearch, 500);
@@ -23,7 +30,7 @@ export const SearchBar = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+                setShowGames([...data]);
             })
             .catch((err) => console.log(err));
     }, [searchText]);
@@ -52,6 +59,7 @@ export const SearchBar = () => {
             >
                 <Search />
             </button>
+            {<ShowSearchGames games={showGames} />}
         </form>
     );
 };
