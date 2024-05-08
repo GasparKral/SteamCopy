@@ -1,17 +1,7 @@
-import { db, Users, Games, GamesTags, Tags } from 'astro:db';
-import { createHash } from 'node:crypto';
+import { db, Games, GamesTags, Tags } from 'astro:db';
 
 // https://astro.build/db/seed
 export default async function seed() {
-    await db.insert(Users).values([
-        {
-            userName: 'admin',
-            email: 'admin@test.com',
-            password: createHash('sha256').update('admin').digest('hex'),
-            avatar: 'steampowered-tile.svg',
-            wallet: 0,
-        },
-    ]);
     await db.insert(Games).values([
         {
             name: 'Counter-Strike: Global Offensive 2',
@@ -77,6 +67,14 @@ export default async function seed() {
             offert: true,
             offertedPrice: 59.99,
         },
+        {
+            name: 'The Elder Scrolls V: Skyrim',
+            img: 'https://cdn.cloudflare.steamstatic.com/steam/apps/489830/header.jpg?t=1665276865',
+            price: 39.99,
+            url: '/the-elder-scrolls-v-skyrim',
+            offert: true,
+            offertedPrice: 9.99,
+        },
     ]);
     await db.insert(Tags).values([
         {
@@ -91,8 +89,29 @@ export default async function seed() {
         {
             name: 'Open World',
         },
+        {
+            name: 'Action',
+        },
+        {
+            name: 'Adventure',
+        },
+        {
+            name: 'Survival',
+        },
     ]);
     await db.insert(GamesTags).values([
+        {
+            game: 9,
+            tag: 4,
+        },
+        {
+            game: 9,
+            tag: 3,
+        },
+        {
+            game: 9,
+            tag: 6,
+        },
         {
             game: 7,
             tag: 1,
