@@ -21,14 +21,13 @@ export const ShowFilteredGames = ({ games }: { games: Game[] }) => {
     };
 
     const filterByPrice = (games: Game[]) => {
-        const isOfferted = $filter.isOfferted;
         const [minPrice, maxPrice] = $filter.range;
         return games.filter(
             (game) =>
-                (isOfferted
+                (game.offert
                     ? game.offertedPrice ?? Number.MAX_SAFE_INTEGER
                     : game.price) >= minPrice &&
-                (isOfferted ? game.offertedPrice ?? 0 : game.price) <= maxPrice
+                (game.offert ? game.offertedPrice ?? 0 : game.price) <= maxPrice
         );
     };
 
