@@ -20,6 +20,7 @@ import {
 } from '@stores/useWhistlistStore';
 import { lib, addGameToLib, isGameInLib } from '@stores/useLibStore';
 import { motion } from 'framer-motion';
+import { ReviewBar } from '@reactC/generics/subComponents/ReviewBar';
 
 export const ShowGame = ({ game }: { game: Game }) => {
     const $cart = useStore(cart);
@@ -108,6 +109,11 @@ export const ShowGame = ({ game }: { game: Game }) => {
                         }`}
                     />
                 </button>
+                <ReviewBar
+                    totalRewviews={game.totalReviews}
+                    badReviews={game.badReviews}
+                    style='absolute right-4 bottom-6'
+                />
                 <div className='flex gap-2 justify-between w-fit absolute bottom-14'>
                     {game.price === 0 ? (
                         <button
@@ -139,13 +145,16 @@ export const ShowGame = ({ game }: { game: Game }) => {
                         </button>
                     )}
                 </div>
-                <div className='flex gap-2 absolute bottom-6 overflow-hidden max-w-full'>
-                    {game.tags.split(',').map((tag) => (
-                        <GameTag
-                            key={tag + game.name}
-                            tag={tag}
-                        />
-                    ))}
+                <div className='flex gap-2 absolute bottom-6 max-w-[350px] '>
+                    {game.tags
+                        .split(',')
+                        .slice(0, 3)
+                        .map((tag) => (
+                            <GameTag
+                                key={tag + game.name}
+                                tag={tag}
+                            />
+                        ))}
                 </div>
             </article>
         </motion.section>

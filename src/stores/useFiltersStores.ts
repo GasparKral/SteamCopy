@@ -1,11 +1,18 @@
 import { atom } from 'nanostores';
 
+export type Order =
+    | 'First Cheap'
+    | 'First Expensive'
+    | 'Alphabetically'
+    | 'Alphabetically inverted'
+    | 'Most Popular';
 interface Filter {
     categories: string[];
     range: number[];
     isOfferted: boolean;
     maxPrice: number;
     minPrice: number;
+    orderBy: Order;
 }
 
 export const filter = atom<Filter>({
@@ -14,6 +21,7 @@ export const filter = atom<Filter>({
     isOfferted: false,
     maxPrice: 250,
     minPrice: 0,
+    orderBy: 'First Cheap',
 });
 
 export const updateRange = (value: number[]) => {
@@ -38,4 +46,8 @@ export const elimiateCategories = (value: string) => {
 
 export const updateIsOfferted = (value: boolean) => {
     filter.set({ ...filter.get(), isOfferted: value });
+};
+
+export const updateOrderBy = (value: Order) => {
+    filter.set({ ...filter.get(), orderBy: value });
 };

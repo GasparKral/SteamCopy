@@ -29,6 +29,8 @@ const Games = defineTable({
         url: column.text({}),
         offert: column.boolean({ default: false }),
         offertedPrice: column.number({ optional: true }),
+        totalReviews: column.number({ default: 0 }),
+        badReviews: column.number({ default: 0 }),
     },
     indexes: [
         {

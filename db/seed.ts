@@ -10,6 +10,8 @@ export default async function seed() {
             url: '/couter-strike-global-offensive',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'Halo Infinite',
@@ -18,6 +20,8 @@ export default async function seed() {
             url: '/halo-infinite',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'Borderlands 2',
@@ -26,6 +30,8 @@ export default async function seed() {
             url: '/borderlands-2',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'Call of Duty III',
@@ -34,6 +40,8 @@ export default async function seed() {
             url: '/call-of-duty-iii',
             offert: true,
             offertedPrice: 49.99,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'The Witcher 3: Dawn of the Wild Hunt',
@@ -42,6 +50,8 @@ export default async function seed() {
             url: '/the-witcher-3-dawn-of-the-wild-hunt',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: "Assassin's Creed: Valhalla",
@@ -50,6 +60,8 @@ export default async function seed() {
             url: '/assassins-creed-Valhalla',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'Cyberpunk 2077',
@@ -58,6 +70,8 @@ export default async function seed() {
             url: '/cyberpunk-2077',
             offert: false,
             offertedPrice: null,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'Red Dead Redemption 2',
@@ -66,6 +80,8 @@ export default async function seed() {
             url: '/red-dead-redemption-2',
             offert: true,
             offertedPrice: 59.99,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
         {
             name: 'The Elder Scrolls V: Skyrim',
@@ -74,6 +90,8 @@ export default async function seed() {
             url: '/the-elder-scrolls-v-skyrim',
             offert: true,
             offertedPrice: 9.99,
+            totalReviews: Math.random() * 100000,
+            badReviews: Math.random() * 7500,
         },
     ]);
     await db.insert(Tags).values([

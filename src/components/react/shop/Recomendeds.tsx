@@ -19,10 +19,13 @@ import {
     addToWhistlist,
     removeFromWhistlist,
 } from '@stores/useWhistlistStore';
+import { lib, addGameToLib, isGameInLib } from '@stores/useLibStore';
+import { ReviewBar } from '@reactC/generics/subComponents/ReviewBar';
 
 export const Recomendeds = ({ games }: { games: Game[] }) => {
     const $cart = useStore(cart);
     const $whistList = useStore(whistList);
+    const $lib = useStore(lib);
     const [index, setIndex] = useState(0);
     const [isLoved, setIsLoved] = useState(isGameInWhistlist(games[index]));
 
@@ -75,6 +78,14 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
         }
     };
 
+    const handleAddToLib = (game: Game) => {
+        if (!isGameInLib(game)) {
+            addGameToLib(game);
+        } else {
+            return;
+        }
+    };
+
     return (
         <section className='w-4/5 flex flex-col gap-4 mb-16 '>
             <h2 className='text-5xl ml-10'>Recomendados:</h2>
@@ -82,7 +93,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                 <button onClick={previousGame}>
                     <Arrow styles='rotate-180 hover:drop-shadow-blue-accent' />
                 </button>
-                <article className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue  transition-all duration-300'>
+                <div className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue  transition-all duration-300'>
                     <a
                         href={games[index].url}
                         data-astro-prefetch='load'
@@ -95,7 +106,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                         />
                     </a>
                     <article className='p-6 pl-0'>
-                        <h2 className='text-4xl break-words'>
+                        <h2 className='text-6xl break-words max-w-[550px]'>
                             {games[index].name}
                         </h2>
                         <Price
@@ -121,12 +132,23 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                             />
                         </button>
                         <div className='flex gap-2 justify-between w-fit absolute bottom-14'>
-                            <a
-                                href='/pagos'
-                                className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
-                            >
-                                Compralo ya!
-                            </a>
+                            {games[index].price === 0 ? (
+                                <button
+                                    onClick={() => handleAddToLib(games[index])}
+                                    className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
+                                >
+                                    {isGameInLib(games[index])
+                                        ? 'Ya en  librería'
+                                        : 'Añadir a la librería'}
+                                </button>
+                            ) : (
+                                <a
+                                    href='/pagos'
+                                    className='bg-desaturated-green/80 text-saturated-green hover:bg-desaturated-green px-2 py-1 rounded-md transition-colors duration-200'
+                                >
+                                    Compralo ya!
+                                </a>
+                            )}
                             {games[index].price === 0 ? null : (
                                 <button
                                     onClick={() => handleCart(games[index])}
@@ -148,8 +170,13 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                                 />
                             ))}
                         </div>
+                        <ReviewBar
+                            style='absolute bottom-6 right-4'
+                            totalRewviews={games[index].totalReviews}
+                            badReviews={games[index].badReviews}
+                        />
                     </article>
-                </article>
+                </div>
                 <button onClick={nextGame}>
                     <Arrow styles='hover:drop-shadow-blue-accent' />
                 </button>

@@ -1,3 +1,5 @@
+import type { Order } from '@stores/useFiltersStores';
+
 import { Slider } from '@nextui-org/react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -16,7 +18,9 @@ import {
     elimiateCategories,
     updateIsOfferted,
     updateRange,
+    updateOrderBy,
 } from '@stores/useFiltersStores';
+import { Select, SelectItem } from '@nextui-org/react';
 
 export const Filters = ({ categorias }: { categorias: string[] }) => {
     const $filter = useStore(filter);
@@ -73,7 +77,7 @@ export const Filters = ({ categorias }: { categorias: string[] }) => {
                     />
                 </fieldset>
                 <fieldset className='py-4 flex flex-col gap-2 '>
-                    <h3 className='text-accent-blue'>Categoría</h3>
+                    <h3 className='text-accent-blue'>Categorías</h3>
 
                     <Dropdown
                         classNames={{
@@ -88,7 +92,7 @@ export const Filters = ({ categorias }: { categorias: string[] }) => {
                                 radius='sm'
                                 className='bg-accent-blue/80 text-neutral-50 w-fit px-2'
                             >
-                                Añadir un nuevo filtro (+)
+                                Añadir una nueva categoría (+)
                             </Button>
                         </DropdownTrigger>
                         <DropdownMenu
@@ -141,8 +145,49 @@ export const Filters = ({ categorias }: { categorias: string[] }) => {
                         </motion.ul>
                     </AnimatePresence>
                 </fieldset>
-                <fieldset className='py-4 absolute bottom-0 w-full'>
+                <fieldset className='flex flex-col gap-2 py-4 absolute bottom-0 w-full'>
                     <h3 className='text-accent-blue'>Opciones</h3>
+                    <Select
+                        variant='underlined'
+                        label='Ordenar por'
+                        size='sm'
+                        labelPlacement='outside'
+                        onChange={(e) => updateOrderBy(e.target.value as Order)}
+                        classNames={{
+                            label: [
+                                'text-neutral-50 ',
+                                'group-data-[filled=true]:text-accent-blue/80',
+                            ],
+                            listboxWrapper: ['bg-primary-blue'],
+                            base: ['data-[filled=true]:bg-accent-blue/80'],
+                            selectorIcon: [
+                                'text-neutral-50 data-[open=true]:text-accent-blue',
+                            ],
+                            listbox: ['bg-primary-blue'],
+                            popoverContent: ['bg-primary-blue drop-shadow-md'],
+                        }}
+                    >
+                        {[
+                            'First Cheap',
+                            'First Expensive',
+                            'Alphabetically',
+                            'Alphabetically inverted',
+                            'Most Popular',
+                        ].map((option) => (
+                            <SelectItem
+                                key={option}
+                                value={option}
+                                classNames={{
+                                    base: [
+                                        'data-[focus=true]:bg-accent-blue/80 ',
+                                        'data-[hover=true]:bg-accent-blue',
+                                    ],
+                                }}
+                            >
+                                {option}
+                            </SelectItem>
+                        ))}
+                    </Select>
                     <Checkbox
                         size='sm'
                         radius='full'

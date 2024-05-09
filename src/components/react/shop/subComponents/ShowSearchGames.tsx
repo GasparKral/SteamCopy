@@ -9,7 +9,7 @@ export const ShowSearchGames = ({ games }: { games: Game[] }) => {
                     : 'absolute top-8 w-full bg-slate-500  rounded flex flex-col divide-y divide-slate-100'
             }
         >
-            {games.map((game) => (
+            {games.slice(0, 5).map((game) => (
                 <li key={game.id}>
                     <a
                         href={game.url}
@@ -23,7 +23,11 @@ export const ShowSearchGames = ({ games }: { games: Game[] }) => {
                         <div>
                             <h6 className='text-sm break-words'>{game.name}</h6>
                             <small className='relative bottom-1'>
-                                {game.offert ? game.offertedPrice : game.price}€
+                                {game.offert
+                                    ? game.offertedPrice
+                                    : game.price > 0
+                                    ? game.price + '€'
+                                    : 'Gratis'}
                             </small>
                         </div>
                     </a>

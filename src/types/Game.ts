@@ -7,4 +7,6 @@ export type Game = {
     tags: string;
     offert: boolean;
     offertedPrice: number | null;
+    totalReviews: number;
+    badReviews: number;
 };
