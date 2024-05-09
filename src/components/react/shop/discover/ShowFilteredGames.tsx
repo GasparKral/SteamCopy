@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { filter } from '@stores/useFiltersStores';
 import { ShowGame } from '@reactC/generics/ShowGame';
 import { lib } from '@stores/useLibStore';
+import { AnimatePresence } from 'framer-motion';
 
 export const ShowFilteredGames = ({ games }: { games: Game[] }) => {
     const $filter = useStore(filter);
@@ -54,13 +55,13 @@ export const ShowFilteredGames = ({ games }: { games: Game[] }) => {
     );
 
     return (
-        <>
+        <AnimatePresence>
             {gamesToShow.map((game) => (
                 <ShowGame
                     key={game.id}
                     game={game}
                 />
             ))}
-        </>
+        </AnimatePresence>
     );
 };

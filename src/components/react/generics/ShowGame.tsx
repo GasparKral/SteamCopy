@@ -19,6 +19,7 @@ import {
     removeFromWhistlist,
 } from '@stores/useWhistlistStore';
 import { lib, addGameToLib, isGameInLib } from '@stores/useLibStore';
+import { motion } from 'framer-motion';
 
 export const ShowGame = ({ game }: { game: Game }) => {
     const $cart = useStore(cart);
@@ -57,7 +58,16 @@ export const ShowGame = ({ game }: { game: Game }) => {
     }, [$whistList]);
 
     return (
-        <section className='w-[calc(100%-2rem)] 2xl:w-4/5 flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300 max-h-[250px] min-h-[250px]'>
+        <motion.section
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{
+                opacity: 1,
+                scale: 1,
+                transition: { duration: 0.2, ease: 'linear' },
+                type: 'tween',
+            }}
+            className='w-[calc(100%-2rem)] 2xl:w-4/5 flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300 max-h-[250px] min-h-[250px]'
+        >
             <a
                 href={game.url}
                 data-astro-prefetch='load'
@@ -138,6 +148,6 @@ export const ShowGame = ({ game }: { game: Game }) => {
                     ))}
                 </div>
             </article>
-        </section>
+        </motion.section>
     );
 };

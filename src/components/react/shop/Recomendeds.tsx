@@ -1,3 +1,5 @@
+import type { Game } from 'types/Game';
+
 import { Arrow } from '@assets/Arrow';
 import { GameTag } from '@reactC/shop/subComponents/GameTag';
 import { useState, useEffect } from 'react';
@@ -17,8 +19,6 @@ import {
     addToWhistlist,
     removeFromWhistlist,
 } from '@stores/useWhistlistStore';
-
-import type { Game } from 'types/Game';
 
 export const Recomendeds = ({ games }: { games: Game[] }) => {
     const $cart = useStore(cart);

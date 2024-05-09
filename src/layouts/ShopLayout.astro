@@ -38,7 +38,7 @@ const path = Astro.url.pathname;
             </li>
         </menu>
         <div class='flex gap-4 items-center'>
-            <SearchBar client:load />
+            <SearchBar client:only />
             <WishList
                 styles='min-w-[98px]'
                 client:load

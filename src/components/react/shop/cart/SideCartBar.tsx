@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '@nanostores/react';
 import { isCartOpen, setIsCartOpen } from '@stores/useLayoutsStore';
 import { cart } from '@stores/useCartStore';
@@ -9,7 +9,7 @@ export const SideCartBar = () => {
     const $cart = useStore(cart);
 
     return (
-        <>
+        <AnimatePresence>
             {$isCartOpen && (
                 <motion.aside
                     className='fixed flex flex-col items-center right-0 top-20 h-[calc(100vh-80px)] w-[255px] pr-4 py-4 pt-16 bg-dark-primary-blue z-10'
@@ -17,6 +17,11 @@ export const SideCartBar = () => {
                     animate={{
                         x: 0,
                         transition: { duration: 0.3 },
+                        type: 'tween',
+                    }}
+                    exit={{
+                        x: '100%',
+                        transition: { duration: 0.2 },
                         type: 'tween',
                     }}
                 >
@@ -43,6 +48,6 @@ export const SideCartBar = () => {
                     </a>
                 </motion.aside>
             )}
-        </>
+        </AnimatePresence>
     );
 };
