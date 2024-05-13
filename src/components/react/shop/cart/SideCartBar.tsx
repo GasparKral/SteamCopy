@@ -12,7 +12,7 @@ export const SideCartBar = () => {
         <AnimatePresence>
             {$isCartOpen && (
                 <motion.aside
-                    className='fixed flex flex-col items-center right-0 top-20 h-[calc(100vh-80px)] w-[255px] pr-4 py-4 pt-16 bg-dark-primary-blue z-10'
+                    className='fixed flex flex-col  right-0 top-20 h-[calc(100vh-80px)] max-w-[255px] w-full pt-12 bg-dark-primary-blue z-10 border-l-2 border-accent-blue/40'
                     initial={{ x: '100%' }}
                     animate={{
                         x: 0,
@@ -32,7 +32,7 @@ export const SideCartBar = () => {
                         <ClossingArrow />
                     </button>
 
-                    <ul className='flex flex-col gap-2'>
+                    <ul className='flex flex-col'>
                         {$cart.map((cart) => (
                             <CartGameComponent
                                 key={cart.id}

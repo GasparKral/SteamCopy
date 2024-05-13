@@ -4,7 +4,6 @@ import Layout from './Layout.astro';
 import { WishList } from '@reactC/shop/topNav/WhistList';
 import { SearchBar } from '@reactC/shop/topNav/ShearchBar';
 import { Cart } from '@reactC/shop/topNav/Cart';
-import { Settings } from '@assets/Settings';
 import { SideCartBar } from '@reactC/shop/cart/SideCartBar';
 
 const path = Astro.url.pathname;
@@ -37,21 +36,13 @@ const path = Astro.url.pathname;
                 >
             </li>
         </menu>
-        <div class='flex gap-4 items-center'>
-            <SearchBar client:only />
+        <div class='flex gap-1 items-center g'>
+            <SearchBar client:load />
             <WishList
-                styles='min-w-[98px]'
+                styles='min-w-[98px] ml-3'
                 client:load
             />
             <Cart client:load />
-            <a
-                href='/ajustes'
-                class='bg-dark-primary-blue/60 p-1 rounded group'
-            >
-                <Settings
-                    styles='group-hover:drop-shadow-blue-accent transition-all duration-200'
-                />
-            </a>
         </div>
     </nav>
     <SideCartBar client:load />

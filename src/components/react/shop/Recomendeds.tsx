@@ -93,20 +93,26 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                 <button onClick={previousGame}>
                     <Arrow styles='rotate-180 hover:drop-shadow-blue-accent' />
                 </button>
-                <div className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue  transition-all duration-300'>
+                <div
+                    className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue/40 transition-all duration-300 shadow-md'
+                    style={{
+                        backgroundBlendMode: 'darken',
+                        backgroundImage: 'url("/sectionBG.svg")',
+                    }}
+                >
                     <a
-                        href={games[index].url}
+                        href={'/games' + games[index].url}
                         data-astro-prefetch='load'
                         className='max-w-[500px] 2xl:max-w-[675px]'
                     >
                         <img
-                            className='shadow-right h-full object-cover'
+                            className='hover:shadow-right h-full object-cover transition-shadow duration-500 ring-1 ring-dark-primary-blue'
                             src={games[index].img}
                             alt={`Banner of ${games[index].name}`}
                         />
                     </a>
-                    <article className='p-6 pl-0'>
-                        <h2 className='text-6xl break-words max-w-[550px]'>
+                    <article className='p-6 pl-0 '>
+                        <h2 className=' text-5xl 2xl:text-6xl break-words max-w-[550px]'>
                             {games[index].name}
                         </h2>
                         <Price

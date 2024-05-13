@@ -13,7 +13,9 @@ export default defineConfig({
         '/': '/tienda',
     },
     site: 'https://steamui.netlify.app',
-    adapter: netlify(),
+    adapter: netlify({
+        cacheOnDemandPages: true,
+    }),
     output: 'server',
     vite: {
         ssr: {

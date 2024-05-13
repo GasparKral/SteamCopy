@@ -1,0 +1,12 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import GamesLayout from '@/layouts/GamesLayout.astro';
+
+const path = Astro.url.href;
+const gameURL = path.split('/games/')[1];
+const title = gameURL.replaceAll('-', ' ');
+---
+
+<Layout title={title}>
+    <GamesLayout gameURL={gameURL} />
+</Layout>

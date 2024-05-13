@@ -1,39 +1,84 @@
 ---
-import Layout from './Layout.astro';
-import { db, Games, eq } from 'astro:db';
+import { db, Games, eq, sql, Tags, GamesTags } from 'astro:db';
+import { GameTag } from '@reactC/shop/subComponents/GameTag';
 
-const { gameName } = Astro.props;
-const game = await db
-    .select()
+const { gameURL } = Astro.props;
+
+const [
+    {
+        id,
+        name,
+        img,
+        price,
+        url,
+        tags,
+        offert,
+        offertedPrice,
+        totalReviews,
+        badReviews,
+    },
+] = await db
+    .select({
+        id: Games.id,
+        name: Games.name,
+        img: Games.img,
+        price: Games.price,
+        url: Games.url,
+        tags: sql<string>`GROUP_CONCAT(${Tags.name})`.as('tags'),
+        offert: Games.offert,
+        offertedPrice: Games.offertedPrice,
+        totalReviews: Games.totalReviews,
+        badReviews: Games.badReviews,
+    })
     .from(Games)
-    .where(eq(Games.name, gameName))
-    .limit(1);
+    .innerJoin(GamesTags, eq(Games.id, GamesTags.game))
+    .innerJoin(Tags, eq(GamesTags.tag, Tags.id))
+    .where(eq(Games.url, '/' + gameURL))
+    .groupBy(Games.url);
 
-const { name, img } = game[0];
+export const prerender = true;
 ---
 
-<Layout title={name}>
-    <main
-        class='w-screen h-screen flex justify-center py-16 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-accent-blue via-light-primary-blue to-light-primary-blue'
+<main
+    class='min-w-screen min-h-screen flex justify-center py-16 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-accent-blue via-light-primary-blue to-light-primary-blue'
+>
+    <section
+        class='grid w-4/5 h-4/5 bg-dark-primary-blue/60 rounded-xl group relative'
+        style='grid-template-columns: 1.2fr 1fr'
     >
-        <section
-            class='grid max-w-screen-2xl w-full h-4/5 bg-dark-primary-blue/60 rounded-xl'
-            style='grid-template-columns: 700px 1fr;'
-        >
-            <img
-                class='w-full object-cover h-full rounded'
-                src={img}
-                alt={`banner de ${name}`}
-            />
-            <article class='px-8 flex flex-col gap-4 p-8'>
-                <h1 class='text-5xl'>{name}</h1>
-                <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Molestias omnis deleniti, cumque dolorum fuga quod enim
-                    quasi animi vitae soluta nihil culpa. Vero eius minus
-                    voluptatum quasi eum officiis quaerat.
-                </p>
-            </article>
-        </section>
-    </main>
-</Layout>
+        <img
+            class='w-full aspect-video object-cover h-full rounded-l ring-1 ring-dark-primary-blue group-hover:shadow-right transition-shadow duration-500'
+            src={img}
+            alt={`banner de ${name}`}
+        />
+        <article class='px-8 flex flex-col gap-4 p-8'>
+            <h1 class='text-5xl'>
+                {name}
+            </h1>
+            <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Molestias omnis deleniti, cumque dolorum fuga quod enim quasi
+                animi vitae soluta nihil culpa. Vero eius minus voluptatum quasi
+                eum officiis quaerat.
+            </p>
+
+            <div class='flex gap-2 absolute bottom-8 max-w-[450px]'>
+                {
+                    tags.split(',').map((tag) => (
+                        <GameTag
+                            tag={tag}
+                            client:load
+                        />
+                    ))
+                }
+            </div>
+        </article>
+    </section>
+</main>
+
+<style>
+    section {
+        background-image: url('/sectionBG.svg');
+        background-blend-mode: darken;
+    }
+</style>

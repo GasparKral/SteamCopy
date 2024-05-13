@@ -1,18 +1,30 @@
 ---
 import { Notifications } from '@assets/Notifications';
+import { Settings } from '@assets/Settings';
 
 const { session } = Astro.props;
 ---
 
 <div class='flex gap-8 align-middle mr-8 items-center'>
-    <button
-        class='bg-gray-blue/60 px-1 py-1 rounded hover:bg-gray-blue transition-colors duration-200'
-    >
-        <Notifications
-            width='16'
-            height='16'
-        />
-    </button>
+    <div class='flex gap-2 align-middle items-center justify-center'>
+        <button
+            class='bg-gray-blue/60 px-1 py-1 rounded hover:bg-gray-blue transition-colors duration-200'
+        >
+            <Notifications
+                width='16'
+                height='16'
+            />
+        </button>
+        <a
+            href='/ajustes'
+            class='p-[2px] rounded group bg-gray-blue/60 hover:bg-gray-blue transition-colors duration-200'
+        >
+            <Settings
+                width='20'
+                height='20'
+            />
+        </a>
+    </div>
     <div class='flex gap-2'>
         <div class='flex flex-col align-baseline items-end'>
             <p style={{ fontSize: '14px', lineHeight: '12px' }}>

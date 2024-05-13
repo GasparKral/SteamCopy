@@ -70,7 +70,7 @@ export const ShowGame = ({ game }: { game: Game }) => {
             className='w-[calc(100%-2rem)] 2xl:w-4/5 flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue hover:shadow-lg transition-all duration-300 max-h-[250px] min-h-[250px]'
         >
             <a
-                href={game.url}
+                href={'/games' + game.url}
                 data-astro-prefetch='load'
                 className=' min-w-[550px]'
             >

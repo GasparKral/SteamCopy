@@ -6,6 +6,6 @@ import Layout from '@/layouts/Layout.astro';
 
 <Layout title='Deseados'>
     <main class='flex flex-col items-center gap-20 pt-9 pb-60 min-h-screen'>
-        <ShowWhistList client:load />
+        <ShowWhistList client:only='react' />
     </main>
 </Layout>
