@@ -12,7 +12,7 @@ export const ShowSearchGames = ({ games }: { games: Game[] }) => {
             {games.slice(0, 5).map((game) => (
                 <li key={game.id}>
                     <a
-                        href={game.url}
+                        href={'/games' + game.url}
                         className='flex columns-2 p-2 gap-4  bg-gradient-to-r from-dark-primary-blue/0 to-primary-blue/80 relative'
                     >
                         <img

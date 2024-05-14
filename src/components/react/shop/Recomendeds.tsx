@@ -94,7 +94,7 @@ export const Recomendeds = ({ games }: { games: Game[] }) => {
                     <Arrow styles='rotate-180 hover:drop-shadow-blue-accent' />
                 </button>
                 <div
-                    className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue/40 transition-all duration-300 shadow-md'
+                    className='flex columns-2 gap-4 overflow-hidden border-dark-primary-blue rounded flex-1 relative bg-dark-primary-blue/40 transition-all duration-300 shadow-md ring-1 ring-accent-blue/10'
                     style={{
                         backgroundBlendMode: 'darken',
                         backgroundImage: 'url("/sectionBG.svg")',

@@ -1,3 +1,5 @@
+import type { Specifications } from '@/types/Specifications';
+
 import { defineDb, defineTable, column } from 'astro:db';
 
 const Users = defineTable({
@@ -57,7 +59,7 @@ const GamesTags = defineTable({
 const Tags = defineTable({
     columns: {
         id: column.number({ primaryKey: true }),
-        name: column.text({}),
+        name: column.text({ unique: true }),
     },
     indexes: [
         {
@@ -95,6 +97,20 @@ const WhisList = defineTable({
     ],
 });
 
+const GameSpecifications = defineTable({
+    columns: {
+        id: column.number({ primaryKey: true }),
+        game: column.number({ references: () => Games.columns.id }),
+        speficification: column.json({ optional: true }),
+    },
+    indexes: [
+        {
+            on: ['id'],
+            unique: true,
+        },
+    ],
+});
+
 // https://astro.build/db/config
 export default defineDb({
     tables: {
@@ -104,5 +120,6 @@ export default defineDb({
         WhisList,
         GamesTags,
         Tags,
+        GameSpecifications,
     },
 });

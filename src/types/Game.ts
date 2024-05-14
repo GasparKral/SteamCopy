@@ -9,4 +9,5 @@ export type Game = {
     offertedPrice: number | null;
     totalReviews: number;
     badReviews: number;
+    specifications: JSON;
 };

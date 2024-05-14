@@ -2,8 +2,10 @@ export const Price: React.FC<{
     price: number;
     offert: boolean;
     offertedPrice: number | null;
-}> = ({ price, offert, offertedPrice }) => (
-    <small className='text-lg'>
+    size?: 'lg' | 'xl' | '3xl' | '5xl';
+    className?: string;
+}> = ({ price, offert, offertedPrice, size = 'lg', className }) => (
+    <small className={`text-${size} ${className}`}>
         {price === 0 ? (
             'Gratis'
         ) : offert ? (

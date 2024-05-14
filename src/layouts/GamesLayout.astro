@@ -1,6 +1,22 @@
 ---
-import { db, Games, eq, sql, Tags, GamesTags } from 'astro:db';
+import type {
+    SpecificationsTable,
+    Specifications,
+} from '@/types/Specifications';
+
+import {
+    db,
+    Games,
+    eq,
+    sql,
+    Tags,
+    GamesTags,
+    GameSpecifications,
+} from 'astro:db';
 import { GameTag } from '@reactC/shop/subComponents/GameTag';
+
+import { Price } from '@/components/react/shop/subComponents/Price';
+import { BuyNowOrCart } from '@reactC/generics/subComponents/BuyNowOrCart';
 
 const { gameURL } = Astro.props;
 
@@ -10,7 +26,6 @@ const [
         name,
         img,
         price,
-        url,
         tags,
         offert,
         offertedPrice,
@@ -23,7 +38,6 @@ const [
         name: Games.name,
         img: Games.img,
         price: Games.price,
-        url: Games.url,
         tags: sql<string>`GROUP_CONCAT(${Tags.name})`.as('tags'),
         offert: Games.offert,
         offertedPrice: Games.offertedPrice,
@@ -36,18 +50,27 @@ const [
     .where(eq(Games.url, '/' + gameURL))
     .groupBy(Games.url);
 
+const specifications: SpecificationsTable[] = await db
+    .select({
+        id: GameSpecifications.id,
+        specifications: GameSpecifications.speficification as Specifications,
+    })
+    .from(GameSpecifications)
+    .where(eq(GameSpecifications.game, id));
+
 export const prerender = true;
 ---
 
 <main
-    class='min-w-screen min-h-screen flex justify-center py-16 bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-accent-blue via-light-primary-blue to-light-primary-blue'
+    class='flex flex-col gap-8 items-center min-w-screen min-h-[calc(100vh-50px)] justify-center py-16 bg-gradient-to-b from-accent-blue/30 via-light-primary-blue/50 to-dark-primary-blue/20'
 >
     <section
-        class='grid w-4/5 h-4/5 bg-dark-primary-blue/60 rounded-xl group relative'
+        class='grid w-4/5 h-4/5 bg-dark-primary-blue/60 rounded-xl group relative ring-1 ring-accent-blue/10'
         style='grid-template-columns: 1.2fr 1fr'
+        id='gamePrimaryInfo'
     >
         <img
-            class='w-full aspect-video object-cover h-full rounded-l ring-1 ring-dark-primary-blue group-hover:shadow-right transition-shadow duration-500'
+            class='w-full aspect-video object-cover h-full rounded-l group-hover:shadow-right transition-shadow duration-500'
             src={img}
             alt={`banner de ${name}`}
         />
@@ -62,6 +85,13 @@ export const prerender = true;
                 eum officiis quaerat.
             </p>
 
+            <Price
+                price={price}
+                offert={offert}
+                offertedPrice={offertedPrice}
+                size='3xl'
+                className='absolute right-8 bottom-8'
+            />
             <div class='flex gap-2 absolute bottom-8 max-w-[450px]'>
                 {
                     tags.split(',').map((tag) => (
@@ -72,13 +102,97 @@ export const prerender = true;
                     ))
                 }
             </div>
+            <BuyNowOrCart
+                client:load
+                game={{
+                    id,
+                    name,
+                    img,
+                    price,
+                    tags,
+                    offert,
+                    offertedPrice,
+                    totalReviews,
+                    badReviews,
+                }}
+            />
         </article>
     </section>
-</main>
 
-<style>
-    section {
-        background-image: url('/sectionBG.svg');
-        background-blend-mode: darken;
-    }
-</style>
+    <div class='flex columns-2 w-4/5 h-fit gap-8'>
+        <section
+            class:list={[
+                'z-20 grid grid-cols-2 w-full max-w-[1000px] h-4/5 rounded-xl relative px-16 py-8 self-start bg-gradient-to-b from-accent-blue/10 to-accent-blue/0 ',
+                'before:bg-gradient-to-b before:from-dark-primary-blue before:w-[101%] before:col-span-2 before:content-[""] before:-z-10 before:absolute before:left-1/2 before:h-full before:-top-1 before:rounded-2xl before:-translate-x-1/2',
+            ]}
+        >
+            {
+                specifications.map((spec) => (
+                    <aticle class='flex flex-col gap-8 text-slate-400 text-lg min-w-[600px]'>
+                        <h3 class='text-3xl  text-neutral-200'>
+                            Requisitos{' '}
+                            {spec.specifications.recommended
+                                ? 'Recomendados'
+                                : ' Requeridos'}
+                            :
+                        </h3>
+                        <ul>
+                            <li>
+                                Targéta Gráfica: {spec.specifications.graphics}{' '}
+                                o similar
+                            </li>
+                            <li>
+                                Procesador: {spec.specifications.processor} o
+                                similar
+                            </li>
+                            <li>Memoria RAM: {spec.specifications.ram}</li>
+                            <li>
+                                Espacio en el disco:{' '}
+                                {spec.specifications.storage}
+                            </li>
+                        </ul>
+                    </aticle>
+                ))
+            }
+        </section>
+        <section
+            class:list={[
+                'z-20  flex-1 h-full rounded-xl relative px-8 py-8 self-start bg-gradient-to-b from-accent-blue/10 to-accent-blue/0 ',
+                'before:bg-gradient-to-b before:from-dark-primary-blue before:w-[102%] before:col-span-2 before:content-[""] before:-z-10 before:absolute before:left-1/2 before:h-full before:-top-1 before:rounded-2xl before:-translate-x-1/2',
+            ]}
+        >
+            <article class='flex flex-col gap-4'>
+                <h3 class='text-3xl text-neutral-200'>Contenido Extendido:</h3>
+                <ul class='flex flex-col gap-2 text-xl text-slate-400'>
+                    <li
+                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                    >
+                        DLC 1
+                    </li>
+                    <li
+                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                    >
+                        DLC 2
+                    </li>
+                    <li
+                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                    >
+                        DLC 3
+                    </li>
+                    <li
+                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                    >
+                        DLC 4
+                    </li>
+                </ul>
+            </article>
+        </section>
+    </div>
+
+    <style>
+        #gamePrimaryInfo {
+            background-image: url('/sectionBG.svg');
+            background-blend-mode: darken;
+        }
+    </style>
+</main>
