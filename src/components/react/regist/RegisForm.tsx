@@ -1,11 +1,9 @@
-
 import { OpenEye, ClosedEye } from '@assets/Eyes';
 import { useState } from 'react';
 
 export const prerender = true;
 
 export const RegisForm = () => {
-   
     const advise = document.getElementById('advise');
 
     const submited = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +32,6 @@ export const RegisForm = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.status === 200) {
-                    state.setUser(data.user);
                 }
                 if (data.status === 400) {
                     advise?.appendChild(

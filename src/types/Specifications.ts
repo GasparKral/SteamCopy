@@ -1,11 +1,11 @@
 export type SpecificationsTable = {
     id: number;
-    specifications: Specifications;
+    specifications: unknown;
 };
 
 export type Specifications = {
     processor: string;
-    ram: string;
+    memory: string;
     graphics: string;
     storage: string;
     recommended: boolean;

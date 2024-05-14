@@ -10,7 +10,7 @@ export default async function seed() {
             url: '/couter-strike-global-offensive',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -20,7 +20,7 @@ export default async function seed() {
             url: '/halo-infinite',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -30,7 +30,7 @@ export default async function seed() {
             url: '/borderlands-2',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -40,7 +40,7 @@ export default async function seed() {
             url: '/call-of-duty-iii',
             offert: true,
             offertedPrice: 49.99,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -50,7 +50,7 @@ export default async function seed() {
             url: '/the-witcher-3-dawn-of-the-wild-hunt',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -60,7 +60,7 @@ export default async function seed() {
             url: '/assassins-creed-Valhalla',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -70,7 +70,7 @@ export default async function seed() {
             url: '/cyberpunk-2077',
             offert: false,
             offertedPrice: null,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -80,7 +80,7 @@ export default async function seed() {
             url: '/red-dead-redemption-2',
             offert: true,
             offertedPrice: 59.99,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
         {
@@ -90,7 +90,7 @@ export default async function seed() {
             url: '/the-elder-scrolls-v-skyrim',
             offert: true,
             offertedPrice: 9.99,
-            totalReviews: Math.random() * 100000,
+            totalReviews: Math.random() * 100000 + 3500,
             badReviews: Math.random() * 3500,
         },
     ]);
@@ -207,183 +207,165 @@ export default async function seed() {
     await db.insert(GameSpecifications).values([
         {
             game: 1,
-            speficification: {
-                processor: 'Intel Core i5-4440',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 1650',
-                storage: '128 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-4440',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 1650',
+            storage: '128 GB',
+            recommended: false,
         },
         {
             game: 1,
-            speficification: {
-                processor: 'Intel Core i7-7700K',
-                ram: '16 GB',
-                graphics: 'NVIDIA GTX 2080',
-                storage: '128 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-7700K',
+            memory: '16 GB',
+            graphics: 'NVIDIA GTX 2080',
+            storage: '128 GB',
+            recommended: true,
         },
         {
             game: 2,
-            speficification: {
-                processor: 'Intel Core i5-8400',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 1060',
-                storage: '512 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-8400',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 1060',
+            storage: '512 GB',
+            recommended: false,
         },
         {
             game: 2,
-            speficification: {
-                processor: 'Intel Core i7-9700K',
-                ram: '16 GB',
-                graphics: 'NVIDIA RTX 2080',
-                storage: '512 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-9700K',
+            memory: '16 GB',
+            graphics: 'NVIDIA RTX 2080',
+            storage: '512 GB',
+            recommended: true,
         },
         {
             game: 3,
-            speficification: {
-                processor: 'AMD FX-8350',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 760',
-                storage: '75 GB',
-                recommended: false,
-            },
+
+            processor: 'AMD FX-8350',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 760',
+            storage: '75 GB',
+            recommended: false,
         },
         {
             game: 3,
-            speficification: {
-                processor: 'Intel Core i7-4770K',
-                ram: '16 GB',
-                graphics: 'NVIDIA GTX 1060',
-                storage: '75 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-4770K',
+            memory: '16 GB',
+            graphics: 'NVIDIA GTX 1060',
+            storage: '75 GB',
+            recommended: true,
         },
         {
             game: 4,
-            speficification: {
-                processor: 'Intel Core i5-2500K',
-                ram: '6 GB',
-                graphics: 'NVIDIA GeForce GTX 560',
-                storage: '20 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-2500K',
+            memory: '6 GB',
+            graphics: 'NVIDIA GeForce GTX 560',
+            storage: '20 GB',
+            recommended: false,
         },
         {
             game: 4,
-            speficification: {
-                processor: 'Intel Core i7-3770',
-                ram: '8 GB',
-                graphics: 'NVIDIA GeForce GTX 660',
-                storage: '20 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-3770',
+            memory: '8 GB',
+            graphics: 'NVIDIA GeForce GTX 660',
+            storage: '20 GB',
+            recommended: true,
         },
         {
             game: 5,
-            speficification: {
-                processor: 'Intel Core i5-2500K',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 660',
-                storage: '35 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-2500K',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 660',
+            storage: '35 GB',
+            recommended: false,
         },
         {
             game: 5,
-            speficification: {
-                processor: 'Intel Core i7-4770K',
-                ram: '16 GB',
-                graphics: 'NVIDIA GTX 770',
-                storage: '35 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-4770K',
+            memory: '16 GB',
+            graphics: 'NVIDIA GTX 770',
+            storage: '35 GB',
+            recommended: true,
         },
         {
             game: 6,
-            speficification: {
-                processor: 'Intel Core i5-2300',
-                ram: '4 GB',
-                graphics: 'NVIDIA GTX 560',
-                storage: '40 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-2300',
+            memory: '4 GB',
+            graphics: 'NVIDIA GTX 560',
+            storage: '40 GB',
+            recommended: false,
         },
         {
             game: 6,
-            speficification: {
-                processor: 'Intel Core i7-2600K',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 660',
-                storage: '40 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-2600K',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 660',
+            storage: '40 GB',
+            recommended: true,
         },
         {
             game: 7,
-            speficification: {
-                processor: 'Intel Core i5-3570K',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 780',
-                storage: '70 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-3570K',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 780',
+            storage: '70 GB',
+            recommended: false,
         },
         {
             game: 7,
-            speficification: {
-                processor: 'Intel Core i7-4790',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 780 Ti',
-                storage: '70 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-4790',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 780 Ti',
+            storage: '70 GB',
+            recommended: true,
         },
         {
             game: 8,
-            speficification: {
-                processor: 'Intel Core i5-4570',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 780',
-                storage: '150 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-4570',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 780',
+            storage: '150 GB',
+            recommended: false,
         },
         {
             game: 8,
-            speficification: {
-                processor: 'Intel Core i7-4770K',
-                ram: '16 GB',
-                graphics: 'NVIDIA GTX 1060',
-                storage: '150 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-4770K',
+            memory: '16 GB',
+            graphics: 'NVIDIA GTX 1060',
+            storage: '150 GB',
+            recommended: true,
         },
         {
             game: 9,
-            speficification: {
-                processor: 'Intel Core i5-6600K',
-                ram: '8 GB',
-                graphics: 'NVIDIA GTX 1060',
-                storage: '100 GB',
-                recommended: false,
-            },
+
+            processor: 'Intel Core i5-6600K',
+            memory: '8 GB',
+            graphics: 'NVIDIA GTX 1060',
+            storage: '100 GB',
+            recommended: false,
         },
         {
             game: 9,
-            speficification: {
-                processor: 'Intel Core i7-8700K',
-                ram: '16 GB',
-                graphics: 'NVIDIA GTX 1080 Ti',
-                storage: '100 GB',
-                recommended: true,
-            },
+
+            processor: 'Intel Core i7-8700K',
+            memory: '16 GB',
+            graphics: 'NVIDIA GTX 1080 Ti',
+            storage: '100 GB',
+            recommended: true,
         },
     ]);
 }

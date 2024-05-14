@@ -1,6 +1,7 @@
 import type { Specifications } from '@/types/Specifications';
+import type { ColumnType } from '@astrojs/db/types';
 
-import { defineDb, defineTable, column } from 'astro:db';
+import { defineDb, defineTable, column, sql } from 'astro:db';
 
 const Users = defineTable({
     columns: {
@@ -101,7 +102,11 @@ const GameSpecifications = defineTable({
     columns: {
         id: column.number({ primaryKey: true }),
         game: column.number({ references: () => Games.columns.id }),
-        speficification: column.json({ optional: true }),
+        processor: column.text({}),
+        memory: column.text({}),
+        graphics: column.text({}),
+        storage: column.text({}),
+        recommended: column.boolean({ default: false }),
     },
     indexes: [
         {

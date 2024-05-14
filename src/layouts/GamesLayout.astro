@@ -1,8 +1,5 @@
 ---
-import type {
-    SpecificationsTable,
-    Specifications,
-} from '@/types/Specifications';
+import type { Specifications } from '@/types/Specifications';
 
 import {
     db,
@@ -50,10 +47,13 @@ const [
     .where(eq(Games.url, '/' + gameURL))
     .groupBy(Games.url);
 
-const specifications: SpecificationsTable[] = await db
+const specifications: Specifications[] = await db
     .select({
-        id: GameSpecifications.id,
-        specifications: GameSpecifications.speficification as Specifications,
+        processor: GameSpecifications.processor,
+        memory: GameSpecifications.memory,
+        graphics: GameSpecifications.graphics,
+        storage: GameSpecifications.storage,
+        recommended: GameSpecifications.recommended,
     })
     .from(GameSpecifications)
     .where(eq(GameSpecifications.game, id));
@@ -110,6 +110,7 @@ export const prerender = true;
                     img,
                     price,
                     tags,
+                    url: gameURL,
                     offert,
                     offertedPrice,
                     totalReviews,
@@ -130,26 +131,13 @@ export const prerender = true;
                 specifications.map((spec) => (
                     <aticle class='flex flex-col gap-8 text-slate-400 text-lg min-w-[600px]'>
                         <h3 class='text-3xl  text-neutral-200'>
-                            Requisitos{' '}
-                            {spec.specifications.recommended
-                                ? 'Recomendados'
-                                : ' Requeridos'}
-                            :
+                            Requisitos {spec ? 'Recomendados' : ' Requeridos'}:
                         </h3>
                         <ul>
-                            <li>
-                                Targéta Gráfica: {spec.specifications.graphics}{' '}
-                                o similar
-                            </li>
-                            <li>
-                                Procesador: {spec.specifications.processor} o
-                                similar
-                            </li>
-                            <li>Memoria RAM: {spec.specifications.ram}</li>
-                            <li>
-                                Espacio en el disco:{' '}
-                                {spec.specifications.storage}
-                            </li>
+                            <li>Targéta Gráfica: {spec.graphics} o similar</li>
+                            <li>Procesador: {spec.processor} o similar</li>
+                            <li>Memoria RAM: {spec.memory}</li>
+                            <li>Espacio en el disco: {spec.storage}</li>
                         </ul>
                     </aticle>
                 ))
