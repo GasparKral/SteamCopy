@@ -34,6 +34,8 @@ export const POST: APIRoute = async ({ request }) => {
                 tags: sql<string>`GROUP_CONCAT(${Tags.name})`.as('tags'),
                 offert: Games.offert,
                 offertedPrice: Games.offertedPrice,
+                totalReviews: Games.totalReviews,
+                badReviews: Games.badReviews,
             })
             .from(Games)
             .innerJoin(GamesTags, eq(Games.id, GamesTags.game))

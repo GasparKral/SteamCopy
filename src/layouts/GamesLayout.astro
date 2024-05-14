@@ -65,12 +65,12 @@ export const prerender = true;
     class='flex flex-col gap-8 items-center min-w-screen min-h-[calc(100vh-50px)] justify-center py-16 bg-gradient-to-b from-accent-blue/30 via-light-primary-blue/50 to-dark-primary-blue/20'
 >
     <section
-        class='grid w-4/5 h-4/5 bg-dark-primary-blue/60 rounded-xl group relative ring-1 ring-accent-blue/10'
+        class='grid w-4/5 h-4/5 bg-dark-primary-blue/60 rounded-xl group relative ring-1 ring-accent-blue/10 overflow-hidden'
         style='grid-template-columns: 1.2fr 1fr'
         id='gamePrimaryInfo'
     >
         <img
-            class='w-full aspect-video object-cover h-full rounded-l group-hover:shadow-right transition-shadow duration-500'
+            class='w-full aspect-video object-cover h-full rounded-l group-hover:shadow-right transition-shadow duration-500 border-r-2 border-dark-primary-blue'
             src={img}
             alt={`banner de ${name}`}
         />
@@ -153,24 +153,28 @@ export const prerender = true;
                 <h3 class='text-3xl text-neutral-200'>Contenido Extendido:</h3>
                 <ul class='flex flex-col gap-2 text-xl text-slate-400'>
                     <li
-                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                        class='hover:text-neutral-50 hover:bg-gray-blue px-2 flex justify-between rounded-sm transition-colors duration-200 cursor-pointer'
                     >
-                        DLC 1
+                        <span>DLC 1</span>
+                        <small>10.00€</small>
                     </li>
                     <li
-                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                        class='hover:text-neutral-50 hover:bg-gray-blue px-2 flex justify-between rounded-sm transition-colors duration-200 cursor-pointer'
                     >
-                        DLC 2
+                        <span>DLC 2</span>
+                        <small>10.00€</small>
                     </li>
                     <li
-                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                        class='hover:text-neutral-50 hover:bg-gray-blue px-2 flex justify-between rounded-sm transition-colors duration-200 cursor-pointer'
                     >
-                        DLC 3
+                        <span>DLC 3</span>
+                        <small>10.00€</small>
                     </li>
                     <li
-                        class='hover:text-neutral-50 transition-colors duration-200 cursor-pointer'
+                        class='hover:text-neutral-50 hover:bg-gray-blue px-2 flex justify-between rounded-sm transition-colors duration-200 cursor-pointer'
                     >
-                        DLC 4
+                        <span>DLC 4</span>
+                        <small>10.00€</small>
                     </li>
                 </ul>
             </article>

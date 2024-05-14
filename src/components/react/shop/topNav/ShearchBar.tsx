@@ -19,20 +19,22 @@ export const SearchBar = () => {
     const debouncedCallback = useDebounceCallback(setSearch, 500);
 
     useMemo(() => {
-        fetch('/api/games/getseartchgames.json', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                search: searchText,
-            }),
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                setShowGames([...data]);
+        if (searchText !== '') {
+            fetch('/api/games/getseartchgames.json', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    search: searchText,
+                }),
             })
-            .catch((err) => console.log(err));
+                .then((res) => res.json())
+                .then((data) => {
+                    setShowGames([...data]);
+                })
+                .catch((err) => console.log(err));
+        }
     }, [searchText]);
 
     return (
